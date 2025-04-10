@@ -3,271 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketingSudo - Problem Discovery</title>
+    <title>MarketingSudo - Lead Magnet Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50">
     <div class="min-h-screen p-8">
         <header class="max-w-4xl mx-auto mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">MarketingSudo</h1>
-            <p class="text-gray-600 mb-8">Problem Discovery Tool</p>
-
-            <!-- Search Section -->
-            <div class="bg-white p-6 rounded-lg shadow mb-8">
-                <div class="max-w-2xl mx-auto">
-                    <!-- Search Input -->
-                    <div class="relative mb-4">
-                        <input 
-                            type="text" 
-                            id="searchInput"
-                            placeholder="Search for problems (e.g., lead generation, marketing automation)"
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                        <button 
-                            id="searchButton"
-                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-                        >
-                            Search
-                        </button>
-                    </div>
-
-                    <!-- Search Options -->
-                    <div class="flex flex-wrap gap-4 mb-4">
-                        <!-- Time Period Selector -->
-                        <div class="flex items-center space-x-2">
-                            <label class="text-sm text-gray-600">Time:</label>
-                            <select id="timeFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="day">Today</option>
-                                <option value="week">This Week</option>
-                                <option value="month" selected>This Month</option>
-                                <option value="year">This Year</option>
-                                <option value="all">All Time</option>
-                            </select>
-                        </div>
-
-                        <!-- Sort Order Selector -->
-                        <div class="flex items-center space-x-2">
-                            <label class="text-sm text-gray-600">Sort by:</label>
-                            <select id="sortFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="relevance" selected>Relevance</option>
-                                <option value="new">Newest</option>
-                                <option value="top">Most Upvoted</option>
-                                <option value="comments">Most Comments</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Quick Search Suggestions -->
-                    <div class="text-sm text-gray-500">
-                        Popular: 
-                        <button class="text-blue-500 hover:underline" onclick="quickSearch('lead generation')">lead generation</button>,
-                        <button class="text-blue-500 hover:underline" onclick="quickSearch('marketing automation')">marketing automation</button>,
-                        <button class="text-blue-500 hover:underline" onclick="quickSearch('email marketing')">email marketing</button>
-                    </div>
-                </div>
-            </div>
+            <h1 class="text-3xl font-bold text-gray-900">Lead Magnet Generator</h1>
+            <p class="text-gray-600 mb-8">Create compelling case studies and data-driven stories</p>
         </header>
 
         <main class="max-w-4xl mx-auto">
-            <!-- Loading State -->
-            <div id="loadingState" class="hidden">
-                <div class="animate-pulse space-y-4">
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <div class="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
-                        <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+            <!-- Lead Magnet Form -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <div class="space-y-6">
+                    <!-- Story Type Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Story Type</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button onclick="selectTemplate('case-study')" class="story-type-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all" data-type="case-study">
+                                <i class="ri-file-chart-line text-2xl mb-2"></i>
+                                <h3 class="font-semibold">Case Study</h3>
+                                <p class="text-sm text-gray-600">Share a detailed success story with results and process</p>
+                            </button>
+                            <button onclick="selectTemplate('quick-win')" class="story-type-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all" data-type="quick-win">
+                                <i class="ri-flashlight-line text-2xl mb-2"></i>
+                                <h3 class="font-semibold">Quick Win Story</h3>
+                                <p class="text-sm text-gray-600">Share a quick success story with immediate value</p>
+                            </button>
+                        </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <div class="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
-                        <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+
+                    <!-- Story Details -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Attention-Grabbing Headline</label>
+                            <input type="text" id="headline" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                placeholder="e.g., How I Generated $10,000 in 24 Hours Using One Simple Email">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Key Results (Separate with new lines)</label>
+                            <textarea id="results" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="- Generated $10,000 in revenue&#10;- Closed 2 high-ticket clients&#10;- Only took 8 hours"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Story/Process</label>
+                            <textarea id="story" rows="6" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Share your story in a conversational way. Include:&#10;- The situation/challenge&#10;- What you did&#10;- How you did it&#10;- The results&#10;- Key takeaways"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Key Takeaways/Tips</label>
+                            <textarea id="takeaways" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="- Keep your cold emails simple and direct&#10;- Focus on local businesses for quick wins&#10;- Don't overcomplicate the process"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Call to Action</label>
+                            <input type="text" id="cta" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="e.g., Want to learn more? DM me for the exact email template I used">
+                        </div>
+                    </div>
+
+                    <!-- Export Options -->
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="generatePDF()" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            <i class="ri-file-pdf-line mr-2"></i>
+                            Export as PDF
+                        </button>
+                        <button onclick="generateNotion()" class="flex items-center px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800">
+                            <i class="ri-notion-line mr-2"></i>
+                            Export for Notion
+                        </button>
+                        <button onclick="copyToClipboard()" class="flex items-center px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                            <i class="ri-clipboard-line mr-2"></i>
+                            Copy as Text
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Error State -->
-            <div id="errorState" class="hidden">
-                <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-red-700" id="errorMessage">
-                                Something went wrong. Please try again.
-                            </p>
-                        </div>
-                    </div>
+            <!-- Preview Section -->
+            <div id="preview" class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4">Preview</h2>
+                <div id="previewContent" class="prose max-w-none">
+                    <!-- Preview content will be inserted here -->
                 </div>
             </div>
-
-            <!-- Results Stats -->
-            <div id="resultsStats" class="hidden mb-4 text-sm text-gray-600"></div>
-
-            <!-- Results Container -->
-            <div id="resultsContainer"></div>
         </main>
     </div>
 
     <script>
-        // Constants
-        const CLIENT_ID = 'YOUR_REDDIT_CLIENT_ID'; // Will be configured by user
-        const REDDIT_AUTH_URL = 'https://www.reddit.com/api/v1/authorize';
-        const REDDIT_TOKEN_URL = 'https://www.reddit.com/api/v1/access_token';
-        
-        // State management
-        let accessToken = localStorage.getItem('redditAccessToken');
-        let tokenExpiry = localStorage.getItem('tokenExpiry');
-
-        // UI Elements
-        const searchInput = document.getElementById('searchInput');
-        const searchButton = document.getElementById('searchButton');
-        const timeFilter = document.getElementById('timeFilter');
-        const sortFilter = document.getElementById('sortFilter');
-        const loadingState = document.getElementById('loadingState');
-        const errorState = document.getElementById('errorState');
-        const resultsContainer = document.getElementById('resultsContainer');
-        const resultsStats = document.getElementById('resultsStats');
-        const errorMessage = document.getElementById('errorMessage');
-
-        // Event Listeners
-        searchButton.addEventListener('click', handleSearch);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleSearch();
-        });
-        timeFilter.addEventListener('change', handleSearch);
-        sortFilter.addEventListener('change', handleSearch);
-
-        // Quick search function
-        function quickSearch(query) {
-            searchInput.value = query;
-            handleSearch();
-        }
-
-        // Handle search
-        async function handleSearch() {
-            const query = searchInput.value.trim();
-            if (!query) return;
-
-            showLoading();
-            hideError();
-
-            try {
-                const time = timeFilter.value;
-                const sort = sortFilter.value;
-                
-                // Construct the Reddit search URL with filters
-                const searchUrl = `https://www.reddit.com/search.json?q=${encodeURIComponent(query)}+self:yes&sort=${sort}&t=${time}&limit=25`;
-                const response = await fetch(searchUrl);
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch results');
-                }
-
-                const data = await response.json();
-                const problems = processRedditResults(data.data.children);
-                displayResults(problems, query);
-            } catch (error) {
-                console.error('Search error:', error);
-                showError(error.message);
-            } finally {
-                hideLoading();
-            }
-        }
-
-        // Process Reddit results
-        function processRedditResults(posts) {
-            return posts
-                .filter(post => post.data.is_self && !post.data.over_18) // Only text posts, no NSFW
-                .map(post => ({
-                    title: post.data.title,
-                    description: post.data.selftext.substring(0, 200) + '...',
-                    date: formatDate(post.data.created_utc),
-                    comments: post.data.num_comments,
-                    upvotes: post.data.ups,
-                    url: `https://reddit.com${post.data.permalink}`,
-                    subreddit: post.data.subreddit_name_prefixed,
-                    tag: getPostTag(post.data)
-                }));
-        }
-
-        // Helper functions
-        function formatDate(timestamp) {
-            const date = new Date(timestamp * 1000);
-            const now = new Date();
-            const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+        // Template selection
+        function selectTemplate(type) {
+            document.querySelectorAll('.story-type-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'bg-blue-50');
+            });
+            document.querySelector(`[data-type="${type}"]`).classList.add('border-blue-500', 'bg-blue-50');
             
-            if (diffDays === 0) return 'Today';
-            if (diffDays === 1) return 'Yesterday';
-            if (diffDays < 7) return `${diffDays} days ago`;
-            return date.toLocaleDateString();
-        }
-
-        function getPostTag(postData) {
-            if (postData.ups > 500) return 'HOT';
-            if (postData.ups > 100) return 'TRENDING';
-            return 'NEW';
-        }
-
-        // UI functions
-        function displayResults(problems, query) {
-            // Update results stats
-            resultsStats.classList.remove('hidden');
-            resultsStats.textContent = `Found ${problems.length} results for "${query}" • ${timeFilter.options[timeFilter.selectedIndex].text} • Sorted by ${sortFilter.options[sortFilter.selectedIndex].text}`;
-
-            if (problems.length === 0) {
-                resultsContainer.innerHTML = `
-                    <div class="text-center py-8 text-gray-500">
-                        No results found. Try different keywords or filters.
-                    </div>
-                `;
-                return;
+            // Set default content based on template
+            if (type === 'quick-win') {
+                document.getElementById('headline').value = 'How I Made a Client $10,000 While Watching Reacher';
+                document.getElementById('results').value = '- Generated $10,000 in revenue\n- Closed 2 high-ticket clients\n- Only took 8 hours';
+                document.getElementById('story').value = 'It was one of those lazy evenings.\n\nReacher on screen. Coffee in hand. Brain on airplane mode.\n\nThen my phone lights up -\n\n"Hey man, can you get me 2 leads in the next 24 hours?"\n\nNo intro. No context. Just pure panic energy.';
+                document.getElementById('takeaways').value = '- Simple cold emails work better\n- Local businesses are goldmines\n- Speed beats perfection';
+                document.getElementById('cta').value = 'Want the exact email template? Drop a 👋 in the comments!';
+            } else {
+                document.getElementById('headline').value = 'We Generated 1,200 Sales Opportunities from 127,000 Cold Emails';
+                document.getElementById('results').value = '- 1,200 qualified opportunities\n- 127,000 emails sent\n- 6 different targeting strategies tested';
+                document.getElementById('story').value = 'After analyzing our March campaign data, we uncovered some fascinating insights about what really works in cold email outreach.\n\nWe tested multiple data sources, copywriting approaches, and targeting strategies.';
+                document.getElementById('takeaways').value = '- Facebook groups are goldmines for targeted leads\n- AI copywriting works with the right prompts\n- Event-based outreach has highest conversion';
+                document.getElementById('cta').value = 'Want our complete cold email playbook? Click the link in my bio!';
             }
+            updatePreview();
+        }
 
-            resultsContainer.innerHTML = problems.map(problem => `
-                <div class="bg-white rounded-lg shadow p-6 mb-4 hover:shadow-lg transition-shadow">
-                    <div class="flex items-center mb-2">
-                        <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-sm mr-2">${problem.tag}</span>
-                        <span class="text-sm text-gray-500">${problem.date}</span>
-                        <span class="text-sm text-gray-500 ml-2">${problem.subreddit}</span>
-                    </div>
-                    <h2 class="text-xl font-bold mb-2">
-                        <a href="${problem.url}" target="_blank" class="hover:text-blue-600">
-                            ${problem.title}
-                        </a>
-                    </h2>
-                    <p class="text-gray-600 mb-4">${problem.description}</p>
-                    <div class="flex items-center text-sm text-gray-500 space-x-4">
-                        <span>${problem.comments} comments</span>
-                        <span>${problem.upvotes} upvotes</span>
-                    </div>
+        // Preview generation
+        function updatePreview() {
+            const headline = document.getElementById('headline').value;
+            const results = document.getElementById('results').value;
+            const story = document.getElementById('story').value;
+            const takeaways = document.getElementById('takeaways').value;
+            const cta = document.getElementById('cta').value;
+
+            const previewHtml = `
+                <h1 class="text-2xl font-bold mb-4">${headline}</h1>
+                
+                <div class="mb-6">
+                    <h3 class="font-bold mb-2">Key Results:</h3>
+                    <ul class="list-disc pl-5">
+                        ${results.split('\n').map(result => `<li>${result.replace(/^-\s*/, '')}</li>`).join('')}
+                    </ul>
                 </div>
-            `).join('');
+
+                <div class="mb-6 whitespace-pre-wrap">${story}</div>
+
+                <div class="mb-6">
+                    <h3 class="font-bold mb-2">Key Takeaways:</h3>
+                    <ul class="list-disc pl-5">
+                        ${takeaways.split('\n').map(takeaway => `<li>${takeaway.replace(/^-\s*/, '')}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="mt-4 p-4 bg-gray-100 rounded-lg">
+                    <p class="font-bold">${cta}</p>
+                </div>
+            `;
+
+            document.getElementById('previewContent').innerHTML = previewHtml;
         }
 
-        function showLoading() {
-            loadingState.classList.remove('hidden');
-            resultsContainer.innerHTML = '';
-            resultsStats.classList.add('hidden');
+        // Export functions
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const content = document.getElementById('previewContent');
+            doc.html(content, {
+                callback: function(doc) {
+                    doc.save('lead-magnet.pdf');
+                },
+                x: 15,
+                y: 15,
+                width: 170
+            });
         }
 
-        function hideLoading() {
-            loadingState.classList.add('hidden');
+        function generateNotion() {
+            const headline = document.getElementById('headline').value;
+            const results = document.getElementById('results').value;
+            const story = document.getElementById('story').value;
+            const takeaways = document.getElementById('takeaways').value;
+            const cta = document.getElementById('cta').value;
+
+            const notionFormat = `# ${headline}
+
+## Key Results
+${results}
+
+## Story
+${story}
+
+## Key Takeaways
+${takeaways}
+
+## Call to Action
+${cta}`;
+
+            const blob = new Blob([notionFormat], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lead-magnet.md';
+            a.click();
         }
 
-        function showError(message) {
-            errorState.classList.remove('hidden');
-            errorMessage.textContent = message || 'Something went wrong. Please try again.';
+        function copyToClipboard() {
+            const content = document.getElementById('previewContent').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Content copied to clipboard!');
+            });
         }
 
-        function hideError() {
-            errorState.classList.add('hidden');
-        }
+        // Event listeners for real-time preview
+        ['headline', 'results', 'story', 'takeaways', 'cta'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updatePreview);
+        });
 
-        // Initialize with sample search
-        quickSearch('marketing strategy');
+        // Initialize with case study template
+        selectTemplate('case-study');
     </script>
 </body>
 </html> 
