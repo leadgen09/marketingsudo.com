@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketingSudo - Dashboard</title>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    
+    <!-- Load stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Add Tippy.js for tooltips -->
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+    
+    <!-- Load scripts -->
+    <script src="https://unpkg.com/@popperjs/core@2" defer></script>
+    <script src="https://unpkg.com/tippy.js@6" defer></script>
 </head>
 <body class="bg-gray-50">
     <!-- First-time user overlay -->
@@ -829,6 +835,26 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border-radius: 0.5rem;
             padding: 1rem;
+        }
+        
+        /* Add loading spinner styles */
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Optimize transitions */
+        .transition-all {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        /* Improve responsive layout */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 
@@ -1800,6 +1826,42 @@
                 return categories.slice(0, 4); // Limit to 4 categories
             }
         };
+
+        // Add loading state indicators
+        const LoadingManager = {
+            show(element) {
+                const loader = document.createElement('div');
+                loader.className = 'loading-spinner';
+                loader.innerHTML = '<i class="fas fa-circle-notch fa-spin text-blue-600 text-2xl"></i>';
+                element.appendChild(loader);
+            },
+            hide(element) {
+                const loader = element.querySelector('.loading-spinner');
+                if (loader) loader.remove();
+            }
+        };
+
+        // Add error handling for Reddit API
+        const ErrorManager = {
+            show(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded';
+                errorDiv.innerHTML = message;
+                document.body.appendChild(errorDiv);
+                setTimeout(() => errorDiv.remove(), 5000);
+            }
+        };
+
+        // Initialize Reddit OAuth with better error handling
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                RedditOAuth.init();
+                App.init();
+            } catch (error) {
+                console.error('Initialization error:', error);
+                ErrorManager.show('Failed to initialize. Please refresh the page.');
+            }
+        });
     </script>
 </body>
 </html>
