@@ -16,9 +16,14 @@
         }
         .nav-link {
             transition: all 0.2s ease;
+            border-radius: 0.5rem;
         }
         .nav-link:hover {
-            transform: translateY(-1px);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .nav-link.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: rgb(59, 130, 246);
         }
         .community-card {
             transition: all 0.3s ease;
@@ -27,286 +32,288 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f6f8ff 0%, #f0f4ff 100%);
+        }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-gray-900">MarketingSudo</h1>
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <button onclick="showSection('problem-discovery')" class="nav-link border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="ri-search-line mr-2"></i>
-                            Problem Discovery
-                        </button>
-                        <button onclick="showSection('lead-magnet')" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="ri-file-chart-line mr-2"></i>
-                            Lead Magnet
-                        </button>
-                        <button onclick="showSection('community')" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="ri-group-line mr-2"></i>
-                            Community
-                        </button>
-                    </div>
+<body class="gradient-bg">
+    <div class="flex h-screen">
+        <!-- Left Navigation Bar -->
+        <nav class="w-64 bg-white shadow-lg">
+            <div class="p-6">
+                <div class="flex items-center mb-8">
+                    <h1 class="text-xl font-bold text-gray-900">MarketingSudo</h1>
+                </div>
+                <div class="space-y-2">
+                    <button onclick="showSection('problem-discovery')" class="nav-link active w-full flex items-center px-4 py-3 text-gray-700">
+                        <i class="ri-search-line mr-3 text-lg"></i>
+                        Problem Discovery
+                    </button>
+                    <button onclick="showSection('lead-magnet')" class="nav-link w-full flex items-center px-4 py-3 text-gray-700">
+                        <i class="ri-file-chart-line mr-3 text-lg"></i>
+                        Lead Magnet
+                    </button>
+                    <button onclick="showSection('community')" class="nav-link w-full flex items-center px-4 py-3 text-gray-700">
+                        <i class="ri-group-line mr-3 text-lg"></i>
+                        Community
+                    </button>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <div class="min-h-screen p-8">
-        <!-- Problem Discovery Section -->
-        <div id="problem-discovery" class="max-w-4xl mx-auto">
-            <header class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-900">Problem Discovery</h2>
-                <p class="text-gray-600">Find relevant problems in your niche</p>
-            </header>
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto">
+            <div class="p-8">
+                <!-- Problem Discovery Section -->
+                <div id="problem-discovery" class="max-w-4xl mx-auto">
+                    <header class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900">Problem Discovery</h2>
+                        <p class="text-gray-600">Find relevant problems in your niche</p>
+                    </header>
 
-            <!-- Search Section -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="max-w-2xl mx-auto">
-                    <!-- Search Input -->
-                    <div class="relative mb-4">
-                        <input 
-                            type="text" 
-                            id="searchInput"
-                            placeholder="Search for problems (e.g., lead generation, marketing automation)"
-                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        >
-                        <button 
-                            id="searchButton"
-                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-                        >
-                            Search
-                        </button>
-                    </div>
+                    <!-- Search Section -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <div class="max-w-2xl mx-auto">
+                            <!-- Search Input -->
+                            <div class="relative mb-4">
+                                <input 
+                                    type="text" 
+                                    id="searchInput"
+                                    placeholder="Search for problems (e.g., lead generation, marketing automation)"
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                <button 
+                                    id="searchButton"
+                                    class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                                >
+                                    Search
+                                </button>
+                            </div>
 
-                    <!-- Search Options -->
-                    <div class="flex flex-wrap gap-4 mb-4">
-                        <!-- Time Period Selector -->
-                        <div class="flex items-center space-x-2">
-                            <label class="text-sm text-gray-600">Time:</label>
-                            <select id="timeFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="day">Today</option>
-                                <option value="week">This Week</option>
-                                <option value="month" selected>This Month</option>
-                                <option value="year">This Year</option>
-                                <option value="all">All Time</option>
-                            </select>
+                            <!-- Search Options -->
+                            <div class="flex flex-wrap gap-4 mb-4">
+                                <!-- Time Period Selector -->
+                                <div class="flex items-center space-x-2">
+                                    <label class="text-sm text-gray-600">Time:</label>
+                                    <select id="timeFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="day">Today</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month" selected>This Month</option>
+                                        <option value="year">This Year</option>
+                                        <option value="all">All Time</option>
+                                    </select>
+                                </div>
+
+                                <!-- Sort Order Selector -->
+                                <div class="flex items-center space-x-2">
+                                    <label class="text-sm text-gray-600">Sort by:</label>
+                                    <select id="sortFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="relevance" selected>Relevance</option>
+                                        <option value="new">Newest</option>
+                                        <option value="top">Most Upvoted</option>
+                                        <option value="comments">Most Comments</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Quick Search Suggestions -->
+                            <div class="text-sm text-gray-500">
+                                Popular: 
+                                <button class="text-blue-500 hover:underline" onclick="quickSearch('lead generation')">lead generation</button>,
+                                <button class="text-blue-500 hover:underline" onclick="quickSearch('marketing automation')">marketing automation</button>,
+                                <button class="text-blue-500 hover:underline" onclick="quickSearch('email marketing')">email marketing</button>
+                            </div>
                         </div>
+                    </div>
 
-                        <!-- Sort Order Selector -->
-                        <div class="flex items-center space-x-2">
-                            <label class="text-sm text-gray-600">Sort by:</label>
-                            <select id="sortFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="relevance" selected>Relevance</option>
-                                <option value="new">Newest</option>
-                                <option value="top">Most Upvoted</option>
-                                <option value="comments">Most Comments</option>
-                            </select>
+                    <!-- Loading State -->
+                    <div id="loadingState" class="hidden">
+                        <div class="animate-pulse space-y-4">
+                            <div class="bg-white rounded-lg shadow p-6">
+                                <div class="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
+                                <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+                                <div class="h-4 bg-gray-200 rounded w-full"></div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Quick Search Suggestions -->
-                    <div class="text-sm text-gray-500">
-                        Popular: 
-                        <button class="text-blue-500 hover:underline" onclick="quickSearch('lead generation')">lead generation</button>,
-                        <button class="text-blue-500 hover:underline" onclick="quickSearch('marketing automation')">marketing automation</button>,
-                        <button class="text-blue-500 hover:underline" onclick="quickSearch('email marketing')">email marketing</button>
+                    <!-- Results Stats -->
+                    <div id="resultsStats" class="hidden mb-4 text-sm text-gray-600"></div>
+
+                    <!-- Results Container -->
+                    <div id="resultsContainer"></div>
+                </div>
+
+                <!-- Lead Magnet Section -->
+                <div id="lead-magnet" class="max-w-4xl mx-auto hidden">
+                    <header class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900">Lead Magnet Generator</h2>
+                        <p class="text-gray-600">Create compelling case studies and data-driven stories</p>
+                    </header>
+
+                    <!-- Lead Magnet Form -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <div class="space-y-6">
+                            <!-- Story Type Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Story Type</label>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <button onclick="selectTemplate('case-study')" class="story-type-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all" data-type="case-study">
+                                        <i class="ri-file-chart-line text-2xl mb-2"></i>
+                                        <h3 class="font-semibold">Case Study</h3>
+                                        <p class="text-sm text-gray-600">Share a detailed success story with results and process</p>
+                                    </button>
+                                    <button onclick="selectTemplate('quick-win')" class="story-type-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all" data-type="quick-win">
+                                        <i class="ri-flashlight-line text-2xl mb-2"></i>
+                                        <h3 class="font-semibold">Quick Win Story</h3>
+                                        <p class="text-sm text-gray-600">Share a quick success story with immediate value</p>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Story Details -->
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Attention-Grabbing Headline</label>
+                                    <input type="text" id="headline" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                        placeholder="e.g., How I Generated $10,000 in 24 Hours Using One Simple Email">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Key Results (Separate with new lines)</label>
+                                    <textarea id="results" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="- Generated $10,000 in revenue&#10;- Closed 2 high-ticket clients&#10;- Only took 8 hours"></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Story/Process</label>
+                                    <textarea id="story" rows="6" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="Share your story in a conversational way. Include:&#10;- The situation/challenge&#10;- What you did&#10;- How you did it&#10;- The results&#10;- Key takeaways"></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Key Takeaways/Tips</label>
+                                    <textarea id="takeaways" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="- Keep your cold emails simple and direct&#10;- Focus on local businesses for quick wins&#10;- Don't overcomplicate the process"></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Call to Action</label>
+                                    <input type="text" id="cta" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        placeholder="e.g., Want to learn more? DM me for the exact email template I used">
+                                </div>
+                            </div>
+
+                            <!-- Export Options -->
+                            <div class="flex flex-wrap gap-4">
+                                <button onclick="generatePDF()" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                    <i class="ri-file-pdf-line mr-2"></i>
+                                    Export as PDF
+                                </button>
+                                <button onclick="generateNotion()" class="flex items-center px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800">
+                                    <i class="ri-notion-line mr-2"></i>
+                                    Export for Notion
+                                </button>
+                                <button onclick="copyToClipboard()" class="flex items-center px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                    <i class="ri-clipboard-line mr-2"></i>
+                                    Copy as Text
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div id="preview" class="bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-xl font-bold mb-4">Preview</h2>
+                        <div id="previewContent" class="prose max-w-none">
+                            <!-- Preview content will be inserted here -->
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Loading State -->
-            <div id="loadingState" class="hidden">
-                <div class="animate-pulse space-y-4">
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <div class="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
-                        <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-                        <div class="h-4 bg-gray-200 rounded w-full"></div>
-                    </div>
-                </div>
-            </div>
+                <!-- Community Section -->
+                <div id="community" class="max-w-4xl mx-auto hidden">
+                    <header class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900">Join Our Community</h2>
+                        <p class="text-gray-600">Connect with fellow marketers and grow together</p>
+                    </header>
 
-            <!-- Results Stats -->
-            <div id="resultsStats" class="hidden mb-4 text-sm text-gray-600"></div>
-
-            <!-- Results Container -->
-            <div id="resultsContainer"></div>
-        </div>
-
-        <!-- Lead Magnet Section -->
-        <div id="lead-magnet" class="max-w-4xl mx-auto hidden">
-            <header class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-900">Lead Magnet Generator</h2>
-                <p class="text-gray-600">Create compelling case studies and data-driven stories</p>
-            </header>
-
-            <!-- Lead Magnet Form -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="space-y-6">
-                    <!-- Story Type Selection -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Story Type</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="selectTemplate('case-study')" class="story-type-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all" data-type="case-study">
-                                <i class="ri-file-chart-line text-2xl mb-2"></i>
-                                <h3 class="font-semibold">Case Study</h3>
-                                <p class="text-sm text-gray-600">Share a detailed success story with results and process</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- WhatsApp Group -->
+                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-blue-500 border-2 border-transparent">
+                            <div class="flex items-center mb-4">
+                                <i class="ri-whatsapp-line text-4xl text-green-500 mr-4"></i>
+                                <div>
+                                    <h3 class="text-xl font-semibold">WhatsApp Group</h3>
+                                    <p class="text-gray-600">Daily marketing discussions & tips</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-4">Join our active WhatsApp community for real-time discussions, quick tips, and networking opportunities.</p>
+                            <button class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+                                Join Group
                             </button>
-                            <button onclick="selectTemplate('quick-win')" class="story-type-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all" data-type="quick-win">
-                                <i class="ri-flashlight-line text-2xl mb-2"></i>
-                                <h3 class="font-semibold">Quick Win Story</h3>
-                                <p class="text-sm text-gray-600">Share a quick success story with immediate value</p>
+                        </div>
+
+                        <!-- Slack Workspace -->
+                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-purple-500 border-2 border-transparent">
+                            <div class="flex items-center mb-4">
+                                <i class="ri-slack-line text-4xl text-purple-500 mr-4"></i>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Slack Workspace</h3>
+                                    <p class="text-gray-600">Organized discussions & resources</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-4">Access our Slack workspace for organized channels, resource sharing, and in-depth discussions.</p>
+                            <button class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                                Join Workspace
+                            </button>
+                        </div>
+
+                        <!-- Discord Server -->
+                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-indigo-500 border-2 border-transparent">
+                            <div class="flex items-center mb-4">
+                                <i class="ri-discord-line text-4xl text-indigo-500 mr-4"></i>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Discord Server</h3>
+                                    <p class="text-gray-600">Voice chats & community events</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-4">Join our Discord server for voice chats, community events, and real-time collaboration.</p>
+                            <button class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-colors">
+                                Join Server
+                            </button>
+                        </div>
+
+                        <!-- Telegram Channel -->
+                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-blue-400 border-2 border-transparent">
+                            <div class="flex items-center mb-4">
+                                <i class="ri-telegram-line text-4xl text-blue-400 mr-4"></i>
+                                <div>
+                                    <h3 class="text-xl font-semibold">Telegram Channel</h3>
+                                    <p class="text-gray-600">News & updates</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-4">Stay updated with our Telegram channel for the latest marketing news and updates.</p>
+                            <button class="w-full bg-blue-400 text-white py-2 rounded-lg hover:bg-blue-500 transition-colors">
+                                Join Channel
                             </button>
                         </div>
                     </div>
-
-                    <!-- Story Details -->
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Attention-Grabbing Headline</label>
-                            <input type="text" id="headline" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                placeholder="e.g., How I Generated $10,000 in 24 Hours Using One Simple Email">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Key Results (Separate with new lines)</label>
-                            <textarea id="results" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="- Generated $10,000 in revenue&#10;- Closed 2 high-ticket clients&#10;- Only took 8 hours"></textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Story/Process</label>
-                            <textarea id="story" rows="6" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Share your story in a conversational way. Include:&#10;- The situation/challenge&#10;- What you did&#10;- How you did it&#10;- The results&#10;- Key takeaways"></textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Key Takeaways/Tips</label>
-                            <textarea id="takeaways" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="- Keep your cold emails simple and direct&#10;- Focus on local businesses for quick wins&#10;- Don't overcomplicate the process"></textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Call to Action</label>
-                            <input type="text" id="cta" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="e.g., Want to learn more? DM me for the exact email template I used">
-                        </div>
-                    </div>
-
-                    <!-- Export Options -->
-                    <div class="flex flex-wrap gap-4">
-                        <button onclick="generatePDF()" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                            <i class="ri-file-pdf-line mr-2"></i>
-                            Export as PDF
-                        </button>
-                        <button onclick="generateNotion()" class="flex items-center px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800">
-                            <i class="ri-notion-line mr-2"></i>
-                            Export for Notion
-                        </button>
-                        <button onclick="copyToClipboard()" class="flex items-center px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                            <i class="ri-clipboard-line mr-2"></i>
-                            Copy as Text
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Preview Section -->
-            <div id="preview" class="bg-white rounded-lg shadow-lg p-6">
-                <h2 class="text-xl font-bold mb-4">Preview</h2>
-                <div id="previewContent" class="prose max-w-none">
-                    <!-- Preview content will be inserted here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Community Section -->
-        <div id="community" class="max-w-4xl mx-auto hidden">
-            <header class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-900">Join Our Community</h2>
-                <p class="text-gray-600">Connect with fellow marketers and grow together</p>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- WhatsApp Group -->
-                <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-blue-500 border-2 border-transparent">
-                    <div class="flex items-center mb-4">
-                        <i class="ri-whatsapp-line text-4xl text-green-500 mr-4"></i>
-                        <div>
-                            <h3 class="text-xl font-semibold">WhatsApp Group</h3>
-                            <p class="text-gray-600">Daily marketing discussions & tips</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">Join our active WhatsApp community for real-time discussions, quick tips, and networking opportunities.</p>
-                    <button class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
-                        Join Group
-                    </button>
-                </div>
-
-                <!-- Slack Workspace -->
-                <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-purple-500 border-2 border-transparent">
-                    <div class="flex items-center mb-4">
-                        <i class="ri-slack-line text-4xl text-purple-500 mr-4"></i>
-                        <div>
-                            <h3 class="text-xl font-semibold">Slack Workspace</h3>
-                            <p class="text-gray-600">Organized discussions & resources</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">Access our Slack workspace for organized channels, resource sharing, and in-depth discussions.</p>
-                    <button class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors">
-                        Join Workspace
-                    </button>
-                </div>
-
-                <!-- Discord Server -->
-                <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-indigo-500 border-2 border-transparent">
-                    <div class="flex items-center mb-4">
-                        <i class="ri-discord-line text-4xl text-indigo-500 mr-4"></i>
-                        <div>
-                            <h3 class="text-xl font-semibold">Discord Server</h3>
-                            <p class="text-gray-600">Voice chats & community events</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">Join our Discord server for voice chats, community events, and real-time collaboration.</p>
-                    <button class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-colors">
-                        Join Server
-                    </button>
-                </div>
-
-                <!-- Telegram Channel -->
-                <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-blue-400 border-2 border-transparent">
-                    <div class="flex items-center mb-4">
-                        <i class="ri-telegram-line text-4xl text-blue-400 mr-4"></i>
-                        <div>
-                            <h3 class="text-xl font-semibold">Telegram Channel</h3>
-                            <p class="text-gray-600">News & updates</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-4">Stay updated with our Telegram channel for the latest marketing news and updates.</p>
-                    <button class="w-full bg-blue-400 text-white py-2 rounded-lg hover:bg-blue-500 transition-colors">
-                        Join Channel
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Navigation functions
+        // Update showSection function
         function showSection(section) {
             // Update navigation styles
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('border-blue-500', 'text-gray-900');
-                link.classList.add('border-transparent', 'text-gray-500');
+                link.classList.remove('active');
             });
             const activeLink = document.querySelector(`[onclick="showSection('${section}')"]`);
-            activeLink.classList.remove('border-transparent', 'text-gray-500');
-            activeLink.classList.add('border-blue-500', 'text-gray-900');
+            activeLink.classList.add('active');
 
             // Show/hide sections
             document.getElementById('problem-discovery').classList.toggle('hidden', section !== 'problem-discovery');
