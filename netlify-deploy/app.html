@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketingSudo - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add Tippy.js for tooltips -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+</head>
+<body class="bg-gray-50">
+    <!-- First-time user overlay -->
+    <div id="onboarding-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="bg-white rounded-lg max-w-lg mx-auto mt-20 p-6">
+            <h2 class="text-2xl font-bold mb-4">Welcome to MarketingSudo! 🚀</h2>
+            <p class="mb-4">Let's get you started with a quick tour of our features:</p>
+            <div class="space-y-4 mb-6">
+                <div class="flex items-start">
+                    <i class="fas fa-search text-blue-600 mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="font-bold">Problem Discovery</h3>
+                        <p class="text-sm text-gray-600">Find relevant problems in your niche using our AI-powered search.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-magic text-blue-600 mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="font-bold">Lead Magnets</h3>
+                        <p class="text-sm text-gray-600">Create compelling lead magnets with customizable templates.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <i class="fas fa-share-nodes text-blue-600 mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="font-bold">Distribution</h3>
+                        <p class="text-sm text-gray-600">Share your content in relevant communities and track engagement.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between items-center">
+                <label class="text-sm">
+                    <input type="checkbox" id="dont-show-again"> Don't show this again
+                </label>
+                <button id="start-tour" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Start Tour
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="mobile-menu-toggle" class="fixed bottom-4 right-4 lg:hidden z-40 bg-blue-600 text-white p-4 rounded-full shadow-lg">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="min-h-screen flex flex-col lg:flex-row">
+        <!-- Sidebar -->
+        <nav class="w-full lg:w-64 bg-white shadow-lg flex flex-col lg:h-screen fixed lg:sticky top-0 transform lg:transform-none lg:translate-x-0 transition-transform duration-200 ease-in-out" id="sidebar">
+            <div class="p-4 border-b">
+                <h1 class="text-xl font-bold text-gray-800">MarketingSudo</h1>
+            </div>
+            <div class="p-4 flex-grow">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#problems" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100 nav-link active">
+                            <i class="fas fa-search mr-3"></i>
+                            Problem Discovery
+                        </a>
+                        <ul class="ml-8 mt-2 space-y-1 hidden" id="problem-submenu">
+                            <li>
+                                <a href="#bookmarked" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100 nav-link">
+                                    <i class="far fa-bookmark mr-3"></i>
+                                    Bookmarked Problems
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#magnets" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100 nav-link">
+                            <i class="fas fa-magic mr-3"></i>
+                            Lead Magnets
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#distribute" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100 nav-link">
+                            <i class="fas fa-share-nodes mr-3"></i>
+                            Distribution
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#results" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100 nav-link">
+                            <i class="fas fa-chart-line mr-3"></i>
+                            Results
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Remove User Stats section -->
+            <div class="p-4 border-t">
+                <!-- Empty div for spacing -->
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 lg:p-8 overflow-auto">
+            <div class="max-w-7xl mx-auto">
+                <!-- Problem Discovery Section -->
+                <section id="problems" class="mb-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold">Problem Discovery</h2>
+                            <p class="text-sm text-gray-600 mt-1">Fresh problems from the last 7 days</p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200" onclick="toggleBookmarksView()">
+                                <i class="far fa-bookmark mr-2"></i>Bookmarks (<span id="bookmark-count">0</span>)
+                            </button>
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                <i class="fas fa-bell mr-2"></i>Set Alerts
+                            </button>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-sync mr-2"></i>Refresh Problems
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Search Box -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <div class="flex space-x-4 mb-4">
+                            <div class="flex-1 relative">
+                                <input type="text" id="niche-search" 
+                                       placeholder="Enter your niche (e.g., recruiting, real estate, SaaS)" 
+                                       class="w-full p-3 border rounded-lg">
+                                <div class="absolute right-3 top-3 space-x-2">
+                                    <button class="text-gray-400 hover:text-gray-600" title="Clear">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button id="refresh-problems" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center whitespace-nowrap">
+                                <i class="fas fa-search mr-2"></i>
+                                Find Problems
+                            </button>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="text-sm text-gray-600 mr-2">Popular niches:</div>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Recruiting & HR</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">SaaS</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Real Estate</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Staffing</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Marketing</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Sales</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Tech</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Healthcare</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Finance</button>
+                            <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm cursor-pointer hover:bg-blue-200">Education</button>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Filters Panel -->
+                    <div id="advanced-filters" class="bg-white rounded-lg shadow-md p-6 mb-8 hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Engagement Level</label>
+                                <select class="w-full border rounded-lg p-2" id="engagement-filter">
+                                    <option value="">All</option>
+                                    <option value="high">High (500+ upvotes)</option>
+                                    <option value="medium">Medium (100-500 upvotes)</option>
+                                    <option value="low">Low (< 100 upvotes)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Time Period</label>
+                                <select class="w-full border rounded-lg p-2" id="time-filter">
+                                    <option value="">All Time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+                                <select class="w-full border rounded-lg p-2" id="sort-filter">
+                                    <option value="relevance">Relevance</option>
+                                    <option value="date">Most Recent</option>
+                                    <option value="upvotes">Most Upvotes</option>
+                                    <option value="comments">Most Comments</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Categories</label>
+                            <div class="flex flex-wrap gap-2" id="category-filters">
+                                <!-- Categories will be added dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Grid -->
+                    <div id="problems-grid" class="space-y-6">
+                        <!-- Sample Problem Card -->
+                        <div class="bg-white rounded-lg shadow-md p-6" data-problem-id="recruiting1">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-2">
+                                        <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-sm mr-2">HOT</span>
+                                        <span class="text-sm text-gray-500">Posted 1 day ago</span>
+                                    </div>
+                                    <a href="https://reddit.com/r/recruiting/comments/tech_recruiting_24" target="_blank" class="group">
+                                        <h3 class="font-bold text-lg group-hover:text-blue-600 transition-colors duration-200">
+                                            How to source tech candidates effectively in 2024?
+                                        </h3>
+                                    </a>
+                                </div>
+                                <button class="bookmark-btn text-gray-400 hover:text-gray-600">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <p class="text-gray-600 mb-4">Looking for modern strategies to find and attract software developers.</p>
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                                <a href="https://reddit.com/r/recruiting/comments/tech_recruiting_24" target="_blank" class="hover:text-blue-600">
+                                    <span><i class="fas fa-comment mr-1"></i> 67 comments</span>
+                                </a>
+                                <span><i class="fas fa-arrow-up mr-1"></i> 245 upvotes</span>
+                                <span><i class="fas fa-chart-line mr-1"></i> 98% relevance</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">recruiting</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">tech</span>
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">hiring</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Add Bookmarked Problems Section -->
+                <section id="bookmarked" class="mb-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Bookmarked Problems</h2>
+                        <div class="flex space-x-4">
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200" onclick="toggleBookmarksView()">
+                                <i class="fas fa-arrow-left mr-2"></i>Back to Problems
+                            </button>
+                        </div>
+                    </div>
+                    <div id="bookmarked-problems" class="space-y-6">
+                        <!-- Bookmarked problems will be displayed here -->
+                    </div>
+                </section>
+
+                <!-- Lead Magnets Section -->
+                <section id="magnets" class="mb-12 hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Lead Magnets</h2>
+                        <div class="flex space-x-4">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-plus mr-2"></i>New Lead Magnet
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Selected Problem -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 class="font-bold text-lg mb-2">B2B Lead Generation Strategy</h3>
+                                <p class="text-gray-600">Looking for a proven framework to generate high-quality B2B leads. Current outreach methods aren't scaling well, and we need a repeatable process for our SaaS product.</p>
+                            </div>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">Selected Problem</span>
+                        </div>
+                    </div>
+
+                    <!-- Templates Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="text-blue-600 text-3xl mb-4">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h3 class="font-bold mb-2">B2B Lead Generation Framework</h3>
+                            <p class="text-gray-600 mb-4">Complete guide with proven strategies, templates, and automation workflows for B2B lead generation.</p>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    Generate Lead Magnet
+                                </button>
+                                <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                                    Preview Template
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="text-blue-600 text-3xl mb-4">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3 class="font-bold mb-2">SaaS Outreach Playbook</h3>
+                            <p class="text-gray-600 mb-4">Step-by-step playbook for scaling outreach and lead generation specifically for SaaS companies.</p>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    Generate Lead Magnet
+                                </button>
+                                <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                                    Preview Template
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="text-blue-600 text-3xl mb-4">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="font-bold mb-2">Lead Gen ROI Calculator</h3>
+                            <p class="text-gray-600 mb-4">Interactive tool to calculate and optimize your B2B lead generation ROI with benchmarks.</p>
+                            <div class="space-y-2">
+                                <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    Generate Lead Magnet
+                                </button>
+                                <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+                                    Preview Template
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Distribution Section -->
+                <section id="distribute" class="mb-12 hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Distribution Suite</h2>
+                        <div class="flex space-x-4">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-plus mr-2"></i>New Campaign
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Communities Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- LinkedIn Groups -->
+                        <a href="https://www.linkedin.com/groups/123456789" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-linkedin"></i>
+                                    </div>
+                                    <h3 class="font-bold">B2B Lead Generation Pros</h3>
+                                    <p class="text-sm text-gray-500">45,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Premium group for B2B lead gen experts, daily discussions on strategies and case studies.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-chart-line mr-2"></i>
+                                <span>High engagement rate</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/groups/987654321" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-linkedin"></i>
+                                    </div>
+                                    <h3 class="font-bold">SaaS Growth Leaders</h3>
+                                    <p class="text-sm text-gray-500">28,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Focus on SaaS marketing and lead generation, active daily discussions.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-fire mr-2"></i>
+                                <span>Trending discussions</span>
+                            </div>
+                        </a>
+
+                        <!-- Facebook Groups -->
+                        <a href="https://www.facebook.com/groups/digitalmarketingmastery" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                    <h3 class="font-bold">Digital Marketing Mastery</h3>
+                                    <p class="text-sm text-gray-500">75,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Active community of digital marketers, daily strategy sharing.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-users mr-2"></i>
+                                <span>Very active community</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.facebook.com/groups/leadgenerationexperts" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                    <h3 class="font-bold">Lead Generation Experts Hub</h3>
+                                    <p class="text-sm text-gray-500">32,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Premium group for advanced tactics, focus on automation strategies.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-star mr-2"></i>
+                                <span>Premium content</span>
+                            </div>
+                        </a>
+
+                        <!-- Telegram Channels -->
+                        <a href="https://t.me/leadgendaily" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-telegram"></i>
+                                    </div>
+                                    <h3 class="font-bold">Lead Gen Daily</h3>
+                                    <p class="text-sm text-gray-500">15,000+ subscribers</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Daily updates and insights, premium content sharing.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-bolt mr-2"></i>
+                                <span>Daily updates</span>
+                            </div>
+                        </a>
+
+                        <a href="https://t.me/b2bgrowthhackers" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-telegram"></i>
+                                    </div>
+                                    <h3 class="font-bold">B2B Growth Hackers</h3>
+                                    <p class="text-sm text-gray-500">8,500+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Weekly expert Q&As, exclusive B2B focus.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-comments mr-2"></i>
+                                <span>Expert discussions</span>
+                            </div>
+                        </a>
+
+                        <!-- WhatsApp Groups -->
+                        <a href="https://chat.whatsapp.com/leadgenmasterminds" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <h3 class="font-bold">Lead Gen Masterminds</h3>
+                                    <p class="text-sm text-gray-500">2,500+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Curated expert group, daily wins and strategies.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-crown mr-2"></i>
+                                <span>Expert community</span>
+                            </div>
+                        </a>
+
+                        <!-- Slack Communities -->
+                        <a href="https://join.slack.com/t/marketingpros/shared_invite/zt-1234567890-abcdefghij" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-slack"></i>
+                                    </div>
+                                    <h3 class="font-bold">Marketing Professionals Network</h3>
+                                    <p class="text-sm text-gray-500">12,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Multi-channel community, dedicated lead-gen channels.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-network-wired mr-2"></i>
+                                <span>Active channels</span>
+                            </div>
+                        </a>
+
+                        <!-- Discord Server -->
+                        <a href="https://discord.gg/growthmarketing" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-discord"></i>
+                                    </div>
+                                    <h3 class="font-bold">Growth Marketing Hub</h3>
+                                    <p class="text-sm text-gray-500">5,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">24/7 active community, real-time collaboration.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span>Always active</span>
+                            </div>
+                        </a>
+
+                        <!-- New Community Groups -->
+                        <a href="https://www.facebook.com/groups/emailmarketingpros" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                    <h3 class="font-bold">Email Marketing Pros</h3>
+                                    <p class="text-sm text-gray-500">52,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Advanced email marketing strategies and automation tips.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-rocket mr-2"></i>
+                                <span>Advanced strategies</span>
+                            </div>
+                        </a>
+
+                        <a href="https://t.me/emailautomation" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-telegram"></i>
+                                    </div>
+                                    <h3 class="font-bold">Email Automation Hub</h3>
+                                    <p class="text-sm text-gray-500">12,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Daily automation tips and workflow optimization.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-robot mr-2"></i>
+                                <span>Automation focus</span>
+                            </div>
+                        </a>
+
+                        <a href="https://discord.gg/emailmarketing" target="_blank" class="community-card bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="text-blue-600 text-xl mb-2">
+                                        <i class="fab fa-discord"></i>
+                                    </div>
+                                    <h3 class="font-bold">Email Marketing Community</h3>
+                                    <p class="text-sm text-gray-500">8,000+ members</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm">Join</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Real-time discussions and strategy sharing.</p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-comments mr-2"></i>
+                                <span>Active discussions</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Results Section -->
+                <section id="results" class="mb-12 hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Results Tracker</h2>
+                        <div class="flex space-x-4">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-plus mr-2"></i>Add Result
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Table -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lead Magnet</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Downloads</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Conversion Rate</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">Content Marketing Guide</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">245</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">32%</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
+                                <!-- More result rows would be here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Community Forum Section -->
+                <section id="community" class="mb-12 hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Community Forum</h2>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-plus mr-2"></i>New Discussion
+                        </button>
+                    </div>
+
+                    <!-- Forum Categories -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="font-bold text-lg mb-2">Success Stories</h3>
+                            <p class="text-gray-600 mb-4">Share your wins and learn from others' experiences.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500">128 threads</span>
+                                <a href="#" class="text-blue-600 hover:text-blue-800">View All</a>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="font-bold text-lg mb-2">Strategy Discussion</h3>
+                            <p class="text-gray-600 mb-4">Discuss lead generation tactics and get feedback.</p>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500">256 threads</span>
+                                <a href="#" class="text-blue-600 hover:text-blue-800">View All</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Discussions -->
+                    <div class="bg-white rounded-lg shadow-md">
+                        <div class="p-4 border-b">
+                            <h3 class="font-bold">Recent Discussions</h3>
+                        </div>
+                        <div class="divide-y">
+                            <div class="p-4 hover:bg-gray-50">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-bold">How I Generated 500 Leads in 30 Days</h4>
+                                    <span class="text-sm text-gray-500">2h ago</span>
+                                </div>
+                                <p class="text-gray-600 text-sm mb-2">Sharing my complete strategy and results...</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <span class="mr-4"><i class="far fa-comment mr-1"></i> 24 replies</span>
+                                    <span><i class="far fa-eye mr-1"></i> 156 views</span>
+                                </div>
+                            </div>
+                            <!-- More discussion items -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Customization Sidebar -->
+        <div id="customization-sidebar" class="hidden lg:w-64 bg-white shadow-lg p-4 border-l">
+            <h3 class="font-bold text-lg mb-4">Customize Your Content</h3>
+            
+            <!-- Brand Voice -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Brand Voice</label>
+                <select class="w-full border rounded-lg p-2">
+                    <option>Professional</option>
+                    <option>Casual</option>
+                    <option>Technical</option>
+                    <option>Friendly</option>
+                </select>
+            </div>
+
+            <!-- Writing Style -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Writing Style</label>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2"> Include statistics
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2"> Add case studies
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2"> Use examples
+                    </label>
+                </div>
+            </div>
+
+            <!-- Content Length -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Content Length</label>
+                <input type="range" class="w-full" min="1" max="5">
+                <div class="flex justify-between text-sm text-gray-500">
+                    <span>Concise</span>
+                    <span>Detailed</span>
+                </div>
+            </div>
+
+            <!-- Brand Colors -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Brand Colors</label>
+                <div class="flex space-x-2">
+                    <input type="color" class="w-8 h-8">
+                    <input type="color" class="w-8 h-8">
+                    <input type="color" class="w-8 h-8">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Settings Modal -->
+    <div id="alert-settings-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="bg-white rounded-lg max-w-md mx-auto mt-20 p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">Problem Alert Settings</h3>
+                <button onclick="toggleAlertModal(false)" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Alert Frequency</label>
+                    <select class="w-full border rounded-lg p-2">
+                        <option>Daily Digest</option>
+                        <option>Real-time</option>
+                        <option>Weekly Summary</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Minimum Engagement</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2"> At least 20 comments
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2"> At least 50 upvotes
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2"> Tagged as "HOT" or "TRENDING"
+                        </label>
+                    </div>
+                </div>
+                <button onclick="saveAlertSettings()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Save Alert Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .nav-link.active {
+            background-color: #E5E7EB;
+            color: #1D4ED8;
+            font-weight: 600;
+        }
+        .community-card {
+            transition: all 0.3s ease;
+        }
+        .community-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .community-card i {
+            transition: transform 0.3s ease;
+        }
+        
+        .community-card:hover i {
+            transform: scale(1.2);
+        }
+        
+        /* Problem card hover effects */
+        .problem-card {
+            transition: all 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        /* Button hover effects */
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Link hover effects */
+        .link-hover {
+            transition: color 0.3s ease;
+        }
+        
+        .link-hover:hover {
+            color: #3b82f6;
+        }
+
+        @media (min-width: 1024px) {
+            #sidebar {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            #sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 30;
+            }
+        }
+
+        .tippy-box {
+            background-color: white;
+            color: #1a1a1a;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+    </style>
+
+    <script>
+        // Reddit OAuth Configuration
+        const RedditOAuth = {
+            config: {
+                clientId: 'dODu07541rcXU-bghBI0_g', // Your Reddit App Client ID
+                redirectUri: window.location.origin + '/auth/reddit/callback',
+                scope: 'read',
+                authUrl: 'https://www.reddit.com/api/v1/authorize',
+                tokenUrl: 'https://www.reddit.com/api/v1/access_token',
+                state: crypto.randomUUID()
+            },
+
+            storage: {
+                tokenKey: 'reddit_access_token',
+                stateKey: 'reddit_oauth_state'
+            },
+
+            init() {
+                this.setupAuthButton();
+                this.checkAuthCallback();
+            },
+
+            setupAuthButton() {
+                const authBtn = document.createElement('button');
+                authBtn.className = 'px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 ml-4';
+                authBtn.innerHTML = '<i class="fab fa-reddit mr-2"></i>Connect Reddit';
+                authBtn.onclick = () => this.startAuth();
+
+                // Add to the header buttons
+                const headerBtns = document.querySelector('.flex.space-x-4');
+                if (headerBtns) headerBtns.appendChild(authBtn);
+            },
+
+            startAuth() {
+                // Save state for verification
+                localStorage.setItem(this.storage.stateKey, this.config.state);
+
+                // Build auth URL
+                const params = new URLSearchParams({
+                    client_id: this.config.clientId,
+                    response_type: 'code',
+                    state: this.config.state,
+                    redirect_uri: this.config.redirectUri,
+                    duration: 'permanent',
+                    scope: this.config.scope
+                });
+
+                // Redirect to Reddit auth
+                window.location.href = `${this.config.authUrl}?${params}`;
+            },
+
+            async checkAuthCallback() {
+                const params = new URLSearchParams(window.location.search);
+                const code = params.get('code');
+                const state = params.get('state');
+
+                if (!code || !state) return;
+
+                // Verify state
+                const savedState = localStorage.getItem(this.storage.stateKey);
+                if (state !== savedState) {
+                    console.error('OAuth state mismatch');
+                    return;
+                }
+
+                try {
+                    const token = await this.exchangeCode(code);
+                    if (token) {
+                        localStorage.setItem(this.storage.tokenKey, token);
+                        // Update UI to show connected state
+                        this.updateUIForConnectedState();
+                    }
+                } catch (error) {
+                    console.error('Error exchanging code:', error);
+                }
+            },
+
+            async exchangeCode(code) {
+                const response = await fetch(this.config.tokenUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': 'Basic ' + btoa(`${this.config.clientId}:`)
+                    },
+                    body: new URLSearchParams({
+                        grant_type: 'authorization_code',
+                        code,
+                        redirect_uri: this.config.redirectUri
+                    })
+                });
+
+                if (!response.ok) throw new Error('Token exchange failed');
+                
+                const data = await response.json();
+                return data.access_token;
+            },
+
+            updateUIForConnectedState() {
+                const authBtn = document.querySelector('button:contains("Connect Reddit")');
+                if (authBtn) {
+                    authBtn.innerHTML = '<i class="fab fa-reddit mr-2"></i>Connected';
+                    authBtn.classList.remove('bg-orange-600', 'hover:bg-orange-700');
+                    authBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                }
+            },
+
+            getToken() {
+                return localStorage.getItem(this.storage.tokenKey);
+            },
+
+            isAuthenticated() {
+                return !!this.getToken();
+            }
+        };
+
+        // Core application namespace
+        const App = {
+            state: {
+                problems: [],
+                bookmarkedProblems: [],
+                currentView: 'problems',
+                initialized: false
+            },
+
+            config: {
+                storageKeys: {
+                    bookmarks: 'bookmarkedProblems'
+                },
+                selectors: {
+                    problemsGrid: '#problems-grid',
+                    bookmarkedContainer: '#bookmarked-problems',
+                    bookmarkCount: '#bookmark-count',
+                    problemsSection: '#problems',
+                    bookmarkedSection: '#bookmarked',
+                    nicheSearch: '#niche-search',
+                    bookmarkToggleBtn: '[data-tab="bookmarks"]',
+                    navLinks: '.nav-link',
+                    sections: 'main section',
+                    sidebar: '#sidebar',
+                    mobileMenuToggle: '#mobile-menu-toggle',
+                    advancedFilters: '#advanced-filters',
+                    engagementFilter: '#engagement-filter',
+                    timeFilter: '#time-filter',
+                    sortFilter: '#sort-filter',
+                    categoryFilters: '#category-filters',
+                    loadingOverlay: '#loading-overlay'
+                }
+            },
+
+            // Add Reddit API configuration
+            redditConfig: {
+                subreddits: ['marketing', 'sales', 'startups', 'entrepreneur', 'b2b', 'saas'],
+                filters: {
+                    sortBy: 'relevance',
+                    timeFilter: 'month'
+                }
+            },
+
+            init() {
+                if (this.state.initialized) return;
+                
+                this.loadBookmarks();
+                this.initializeProblems();
+                this.setupEventListeners();
+                this.NavigationManager.init();
+                this.SearchManager.init();
+                this.FilterManager.init();
+                this.updateUI();
+                
+                this.state.initialized = true;
+
+                // Add animation classes
+                document.head.insertAdjacentHTML('beforeend', `
+                    <style>
+                        @keyframes fadeIn {
+                            from { opacity: 0; transform: translateY(10px); }
+                            to { opacity: 1; transform: translateY(0); }
+                        }
+                        .animate-fadeIn {
+                            animation: fadeIn 0.3s ease-out;
+                        }
+                    </style>
+                `);
+            },
+
+            // Navigation Management Module
+            NavigationManager: {
+                init() {
+                    this.setupNavigation();
+                    this.setupMobileMenu();
+                },
+
+                setupNavigation() {
+                    const navLinks = document.querySelectorAll(App.config.selectors.navLinks);
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const targetId = link.getAttribute('href').substring(1);
+                            this.switchToSection(targetId);
+                            this.updateActiveNavLink(link);
+                        });
+                    });
+
+                    // Set initial active state
+                    const initialLink = document.querySelector(`${App.config.selectors.navLinks}[href="#problems"]`);
+                    if (initialLink) {
+                        this.updateActiveNavLink(initialLink);
+                    }
+                },
+
+                setupMobileMenu() {
+                    const mobileToggle = document.querySelector(App.config.selectors.mobileMenuToggle);
+                    const sidebar = document.querySelector(App.config.selectors.sidebar);
+
+                    if (mobileToggle && sidebar) {
+                        mobileToggle.addEventListener('click', () => {
+                            sidebar.classList.toggle('-translate-x-full');
+                        });
+                    }
+                },
+
+                switchToSection(sectionId) {
+                    const sections = document.querySelectorAll(App.config.selectors.sections);
+                    sections.forEach(section => {
+                        if (section.id === sectionId) {
+                            section.classList.remove('hidden');
+                            section.classList.add('animate-fadeIn');
+                        } else {
+                            section.classList.add('hidden');
+                            section.classList.remove('animate-fadeIn');
+                        }
+                    });
+                },
+
+                updateActiveNavLink(activeLink) {
+                    document.querySelectorAll(App.config.selectors.navLinks).forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    activeLink.classList.add('active');
+                }
+            },
+
+            // Search Management Module
+            SearchManager: {
+                init() {
+                    this.setupSearch();
+                    this.setupNicheButtons();
+                    this.setupAdvancedFilters();
+                },
+
+                setupSearch() {
+                    const searchInput = document.querySelector(App.config.selectors.nicheSearch);
+                    if (!searchInput) return;
+
+                    let debounceTimeout;
+                    searchInput.addEventListener('input', (e) => {
+                        clearTimeout(debounceTimeout);
+                        debounceTimeout = setTimeout(() => {
+                            this.performSearch(e.target.value.trim());
+                        }, 500); // Debounce search for 500ms
+                    });
+
+                    const clearButton = searchInput.parentElement.querySelector('.fa-times').parentElement;
+                    if (clearButton) {
+                        clearButton.addEventListener('click', () => {
+                            searchInput.value = '';
+                            this.performSearch('');
+                        });
+                    }
+                },
+
+                setupNicheButtons() {
+                    const nicheButtons = document.querySelectorAll('.flex.flex-wrap.gap-2 button');
+                    nicheButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const searchInput = document.querySelector(App.config.selectors.nicheSearch);
+                            const query = button.textContent.trim();
+                            searchInput.value = query;
+                            this.performSearch(query);
+                        });
+                    });
+                },
+
+                setupAdvancedFilters() {
+                    // Implementation of setupAdvancedFilters method
+                },
+
+                async performSearch(query) {
+                    try {
+                        const filters = this.getActiveFilters();
+                        const results = await App.RedditAPI.searchProblems(query, filters);
+                        App.state.problems = results;
+                        App.ProblemManager.updateProblemsGrid(results);
+                    } catch (error) {
+                        console.error('Search error:', error);
+                        App.ProblemManager.showError('Search failed. Please try again.');
+                    }
+                },
+
+                getActiveFilters() {
+                    return {
+                        timeFilter: document.querySelector(App.config.selectors.timeFilter)?.value,
+                        sortBy: document.querySelector(App.config.selectors.sortFilter)?.value,
+                        engagement: document.querySelector(App.config.selectors.engagementFilter)?.value
+                    };
+                }
+            },
+
+            // Event Listeners
+            setupEventListeners() {
+                // Bookmark toggle button
+                const bookmarkToggleBtn = document.querySelector(this.config.selectors.bookmarkToggleBtn);
+                if (bookmarkToggleBtn) {
+                    bookmarkToggleBtn.addEventListener('click', () => this.ViewManager.toggleBookmarksView());
+                }
+
+                // Refresh problems button
+                const refreshBtn = document.getElementById('refresh-problems');
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', () => {
+                        this.ProblemManager.refreshProblems();
+                    });
+                }
+            },
+
+            // Problem Management Module
+            ProblemManager: {
+                search(query) {
+                    query = query.toLowerCase().trim();
+                    
+                    if (!query) {
+                        this.displayAllProblems();
+                        return;
+                    }
+
+                    const filteredProblems = App.state.problems.filter(problem => 
+                        problem.title.toLowerCase().includes(query) ||
+                        problem.description.toLowerCase().includes(query) ||
+                        problem.categories.some(cat => cat.toLowerCase().includes(query))
+                    );
+
+                    this.updateProblemsGrid(filteredProblems);
+                },
+
+                displayAllProblems() {
+                    this.updateProblemsGrid(App.state.problems);
+                },
+
+                updateProblemsGrid(problems) {
+                    const grid = document.querySelector(App.config.selectors.problemsGrid);
+                    if (!grid) return;
+
+                    grid.innerHTML = problems.map(problem => this.createProblemCard(problem)).join('');
+                    App.BookmarkManager.initializeButtons();
+                },
+
+                createProblemCard(problem) {
+                    return `
+                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300" data-problem-id="${problem.id}">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-2">
+                                        <span class="px-2 py-1 bg-${problem.tagColor}-100 text-${problem.tagColor}-600 rounded text-sm mr-2">${problem.tag}</span>
+                                        <span class="text-sm text-gray-500">${problem.date}</span>
+                                    </div>
+                                    <a href="${problem.redditUrl}" target="_blank" class="group">
+                                        <h3 class="font-bold text-lg group-hover:text-blue-600 transition-colors duration-200">
+                                            ${problem.title}
+                                        </h3>
+                                    </a>
+                                </div>
+                                <button class="bookmark-btn text-gray-400 hover:text-gray-600">
+                                    <i class="far fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <p class="text-gray-600 mb-4">${problem.description}</p>
+                            <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                                <a href="${problem.redditUrl}" target="_blank" class="hover:text-blue-600">
+                                    <span><i class="fas fa-comment mr-1"></i> ${problem.comments}</span>
+                                </a>
+                                <span><i class="fas fa-arrow-up mr-1"></i> ${problem.upvotes}</span>
+                                <span><i class="fas fa-chart-line mr-1"></i> ${problem.relevance}</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                ${problem.categories.map(cat => `
+                                    <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">${cat}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                },
+
+                createProblemMetrics(problem) {
+                    return `
+                        <div class="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                            <a href="https://reddit.com/r/${problem.subreddit}/comments/${problem.redditId}" 
+                               target="_blank" 
+                               class="hover:text-blue-600">
+                                <span><i class="fas fa-comment mr-1"></i> ${problem.comments}</span>
+                            </a>
+                            <span><i class="fas fa-arrow-up mr-1"></i> ${problem.upvotes}</span>
+                            <span><i class="fas fa-chart-line mr-1"></i> ${problem.relevance}</span>
+                        </div>
+                    `;
+                },
+
+                createProblemCategories(problem) {
+                    return `
+                        <div class="flex flex-wrap gap-2">
+                            ${problem.categories.map(cat => `
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">${cat}</span>
+                            `).join('')}
+                        </div>
+                    `;
+                },
+
+                async refreshProblems() {
+                    const searchInput = document.querySelector('#problem-search');
+                    const query = searchInput ? searchInput.value : '';
+                    
+                    this.log('Problems', 'Refreshing problems', { query });
+                    this.showLoading('problems');
+                    
+                    try {
+                        const problems = await this.RedditAPI.searchProblems(query, this.redditConfig.filters);
+                        this.updateProblemsGrid(problems);
+                    } catch (error) {
+                        console.error('Error refreshing problems:', error);
+                        this.showError('Failed to load problems. Please try again.');
+                    } finally {
+                        this.hideLoading('problems');
+                    }
+                },
+
+                showError(message) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4';
+                    errorDiv.innerHTML = `
+                        <span class="block sm:inline">${message}</span>
+                        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <title>Close</title>
+                                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
+                            </svg>
+                        </span>
+                    `;
+                    
+                    const grid = document.querySelector(App.config.selectors.problemsGrid);
+                    grid.parentNode.insertBefore(errorDiv, grid);
+
+                    // Auto-remove after 5 seconds
+                    setTimeout(() => errorDiv.remove(), 5000);
+                },
+
+                generateMoreProblems(count) {
+                    // Generate additional problems
+                    for (let i = 0; i < count; i++) {
+                        const problem = this.generateRandomProblem();
+                        App.state.problems.unshift(problem);
+                    }
+                },
+
+                generateRandomProblem() {
+                    const categories = ['marketing', 'sales', 'tech', 'startup', 'recruiting'];
+                    const category = categories[Math.floor(Math.random() * categories.length)];
+                    const problemId = `${category}${Date.now()}`;
+                    
+                    return {
+                        id: problemId,
+                        title: App.getRandomTitle(category),
+                        description: App.getRandomDescription(category),
+                        date: `Posted ${Math.floor(Math.random() * 7)} days ago`,
+                        tag: ['HOT', 'TRENDING', 'RISING', 'NEW'][Math.floor(Math.random() * 4)],
+                        tagColor: ['red', 'orange', 'yellow', 'green'][Math.floor(Math.random() * 4)],
+                        comments: `${Math.floor(Math.random() * 200 + 50)} comments`,
+                        upvotes: `${Math.floor(Math.random() * 500 + 100)} upvotes`,
+                        relevance: `${Math.floor(Math.random() * 10 + 90)}% relevance`,
+                        redditUrl: `https://www.reddit.com/r/${category}/comments/${problemId}`,
+                        subreddit: category,
+                        categories: [category, ...App.getRandomCategories()]
+                    };
+                }
+            },
+
+            // Bookmark Management Module
+            BookmarkManager: {
+                toggle(button, problemCard) {
+                    const problemId = problemCard.getAttribute('data-problem-id');
+                    const isBookmarked = App.state.bookmarkedProblems.some(p => p.id === problemId);
+                    
+                    if (isBookmarked) {
+                        this.remove(button, problemId);
+                    } else {
+                        this.add(button, problemCard);
+                    }
+                    
+                    this.save();
+                    this.updateUI();
+                },
+
+                add(button, problemCard) {
+                    button.classList.remove('text-gray-400');
+                    button.classList.add('text-blue-600');
+                    button.innerHTML = '<i class="fas fa-bookmark"></i>';
+                    
+                    const problemData = this.extractProblemData(problemCard);
+                    App.state.bookmarkedProblems.push(problemData);
+                },
+
+                remove(button, problemId) {
+                    button.classList.remove('text-blue-600');
+                    button.classList.add('text-gray-400');
+                    button.innerHTML = '<i class="far fa-bookmark"></i>';
+                    
+                    App.state.bookmarkedProblems = App.state.bookmarkedProblems.filter(p => p.id !== problemId);
+                },
+
+                save() {
+                    localStorage.setItem(
+                        App.config.storageKeys.bookmarks, 
+                        JSON.stringify(App.state.bookmarkedProblems)
+                    );
+                },
+
+                extractProblemData(problemCard) {
+                    return {
+                        id: problemCard.getAttribute('data-problem-id'),
+                        title: problemCard.querySelector('h3').textContent.trim(),
+                        description: problemCard.querySelector('p.text-gray-600').textContent.trim(),
+                        date: problemCard.querySelector('.text-sm.text-gray-500').textContent.trim(),
+                        comments: problemCard.querySelector('a span')?.textContent || '',
+                        upvotes: problemCard.querySelector('.fa-arrow-up')?.parentElement?.textContent || '',
+                        relevance: problemCard.querySelector('.fa-chart-line')?.parentElement?.textContent || ''
+                    };
+                },
+
+                initializeButtons() {
+                    document.querySelectorAll('.bookmark-btn').forEach(button => {
+                        const problemCard = button.closest('.bg-white');
+                        const problemId = problemCard.getAttribute('data-problem-id');
+                        
+                        if (App.state.bookmarkedProblems.some(p => p.id === problemId)) {
+                            button.classList.remove('text-gray-400');
+                            button.classList.add('text-blue-600');
+                            button.innerHTML = '<i class="fas fa-bookmark"></i>';
+                        }
+                        
+                        button.onclick = () => this.toggle(button, problemCard);
+                    });
+                    
+                    this.updateBookmarkCount();
+                },
+
+                updateBookmarkCount() {
+                    const countElement = document.querySelector(App.config.selectors.bookmarkCount);
+                    if (countElement) {
+                        countElement.textContent = App.state.bookmarkedProblems.length;
+                    }
+                },
+
+                updateUI() {
+                    this.updateBookmarkCount();
+                    App.ViewManager.updateBookmarkedView();
+                }
+            },
+
+            // View Management Module
+            ViewManager: {
+                toggleBookmarksView() {
+                    const problemsSection = document.querySelector(App.config.selectors.problemsSection);
+                    const bookmarkedSection = document.querySelector(App.config.selectors.bookmarkedSection);
+                    
+                    const isShowingProblems = !problemsSection.classList.contains('hidden');
+                    
+                    problemsSection.classList.toggle('hidden');
+                    bookmarkedSection.classList.toggle('hidden');
+                    
+                    App.state.currentView = isShowingProblems ? 'bookmarks' : 'problems';
+                },
+
+                updateBookmarkedView() {
+                    const container = document.querySelector(App.config.selectors.bookmarkedContainer);
+                    if (!container) return;
+                    
+                    if (App.state.bookmarkedProblems.length === 0) {
+                        this.showEmptyBookmarksMessage(container);
+                        return;
+                    }
+                    
+                    container.innerHTML = App.state.bookmarkedProblems
+                        .map(problem => this.createBookmarkedProblemCard(problem))
+                        .join('');
+                    
+                    App.BookmarkManager.initializeButtons();
+                },
+
+                showEmptyBookmarksMessage(container) {
+                    container.innerHTML = `
+                        <div class="text-center py-8">
+                            <i class="far fa-bookmark text-gray-400 text-4xl mb-4"></i>
+                            <p class="text-gray-600">No bookmarked problems yet</p>
+                        </div>
+                    `;
+                },
+
+                createBookmarkedProblemCard(problem) {
+                    return `
+                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300" 
+                             data-problem-id="${problem.id}">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-2">
+                                        <span class="text-sm text-gray-500">${problem.date}</span>
+                                    </div>
+                                    <h3 class="font-bold text-lg">${problem.title}</h3>
+                                </div>
+                                <button class="bookmark-btn text-blue-600 hover:text-blue-800 transition-colors duration-200">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                            </div>
+                            <p class="text-gray-600 mb-4">${problem.description}</p>
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                ${problem.comments ? `<span><i class="fas fa-comment mr-1"></i> ${problem.comments}</span>` : ''}
+                                ${problem.upvotes ? `<span><i class="fas fa-arrow-up mr-1"></i> ${problem.upvotes}</span>` : ''}
+                                ${problem.relevance ? `<span><i class="fas fa-chart-line mr-1"></i> ${problem.relevance}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+
+            // Data loading and initialization
+            loadBookmarks() {
+                this.state.bookmarkedProblems = JSON.parse(
+                    localStorage.getItem(this.config.storageKeys.bookmarks) || '[]'
+                );
+            },
+
+            initializeProblems() {
+                // Comprehensive sample data with proper Reddit URLs
+                this.state.problems = [
+                    {
+                        id: 'recruiting1',
+                        title: "How to source tech candidates effectively in 2024?",
+                        description: "Looking for modern strategies to find and attract software developers. Our traditional methods aren't working anymore, and we need fresh approaches for the current market.",
+                        date: "Posted 1 day ago",
+                        tag: "HOT",
+                        tagColor: "red",
+                        comments: "67 comments",
+                        upvotes: "245 upvotes",
+                        relevance: "98% relevance",
+                        redditUrl: "https://www.reddit.com/r/recruiting/comments/tech_recruiting_2024",
+                        subreddit: "recruiting",
+                        categories: ['recruiting', 'tech', 'hiring']
+                    },
+                    {
+                        id: 'saas1',
+                        title: "Best practices for SaaS onboarding emails?",
+                        description: "Need to improve our customer onboarding sequence. Looking for proven email sequences that convert trial users to paying customers.",
+                        date: "Posted 3 days ago",
+                        tag: "TRENDING",
+                        tagColor: "orange",
+                        comments: "89 comments",
+                        upvotes: "312 upvotes",
+                        relevance: "96% relevance",
+                        redditUrl: "https://www.reddit.com/r/SaaS/comments/onboarding_best_practices",
+                        subreddit: "SaaS",
+                        categories: ['saas', 'email marketing', 'onboarding']
+                    },
+                    {
+                        id: 'marketing1',
+                        title: "Content marketing ROI tracking methods?",
+                        description: "Struggling to accurately measure content marketing ROI. What tools and metrics are you using to track effectiveness?",
+                        date: "Posted 2 days ago",
+                        tag: "TRENDING",
+                        tagColor: "orange",
+                        comments: "156 comments",
+                        upvotes: "423 upvotes",
+                        relevance: "94% relevance",
+                        redditUrl: "https://www.reddit.com/r/marketing/comments/content_roi_tracking",
+                        subreddit: "marketing",
+                        categories: ['marketing', 'analytics', 'content']
+                    },
+                    {
+                        id: 'sales1',
+                        title: "Cold email templates that actually work in 2024",
+                        description: "Looking for modern cold email templates that break through the noise. What's working for you in the current landscape?",
+                        date: "Posted today",
+                        tag: "HOT",
+                        tagColor: "red",
+                        comments: "234 comments",
+                        upvotes: "567 upvotes",
+                        relevance: "97% relevance",
+                        redditUrl: "https://www.reddit.com/r/sales/comments/cold_email_templates_2024",
+                        subreddit: "sales",
+                        categories: ['sales', 'email', 'outreach']
+                    },
+                    {
+                        id: 'startup1',
+                        title: "How to validate B2B SaaS idea without building?",
+                        description: "Want to validate my B2B SaaS idea before investing in development. What are some effective validation strategies?",
+                        date: "Posted 4 days ago",
+                        tag: "RISING",
+                        tagColor: "yellow",
+                        comments: "178 comments",
+                        upvotes: "389 upvotes",
+                        relevance: "92% relevance",
+                        redditUrl: "https://www.reddit.com/r/startups/comments/saas_validation_methods",
+                        subreddit: "startups",
+                        categories: ['startup', 'saas', 'validation']
+                    }
+                ];
+
+                // Add more problems dynamically based on categories
+                const categories = ['marketing', 'sales', 'tech', 'startup', 'recruiting'];
+                const tags = [
+                    { text: 'HOT', color: 'red' },
+                    { text: 'TRENDING', color: 'orange' },
+                    { text: 'RISING', color: 'yellow' },
+                    { text: 'NEW', color: 'green' }
+                ];
+
+                // Generate additional problems
+                for (let i = 0; i < 20; i++) {
+                    const category = categories[Math.floor(Math.random() * categories.length)];
+                    const tag = tags[Math.floor(Math.random() * tags.length)];
+                    const problemId = `${category}${this.state.problems.length + 1}`;
+                    
+                    this.state.problems.push({
+                        id: problemId,
+                        title: `${this.getRandomTitle(category)}`,
+                        description: `${this.getRandomDescription(category)}`,
+                        date: `Posted ${Math.floor(Math.random() * 7) + 1} days ago`,
+                        tag: tag.text,
+                        tagColor: tag.color,
+                        comments: `${Math.floor(Math.random() * 200) + 50} comments`,
+                        upvotes: `${Math.floor(Math.random() * 500) + 100} upvotes`,
+                        relevance: `${Math.floor(Math.random() * 10) + 90}% relevance`,
+                        redditUrl: `https://www.reddit.com/r/${category}/comments/${problemId}`,
+                        subreddit: category,
+                        categories: [category, ...this.getRandomCategories()]
+                    });
+                }
+            },
+
+            getRandomTitle(category) {
+                const titles = {
+                    marketing: [
+                        "How to measure content marketing success?",
+                        "Best marketing automation tools for small teams?",
+                        "Content distribution strategies that work?",
+                        "Marketing analytics tools comparison"
+                    ],
+                    sales: [
+                        "Effective follow-up sequences for B2B?",
+                        "Sales automation tool recommendations?",
+                        "How to improve sales email open rates?",
+                        "Best CRM for small sales teams?"
+                    ],
+                    tech: [
+                        "Tech stack recommendations for startups?",
+                        "How to build a scalable architecture?",
+                        "Best practices for API design?",
+                        "Cloud hosting cost optimization?"
+                    ],
+                    startup: [
+                        "How to find first B2B customers?",
+                        "Startup pricing strategy advice?",
+                        "B2B market validation techniques?",
+                        "Early-stage funding options?"
+                    ],
+                    recruiting: [
+                        "Technical interview best practices?",
+                        "Remote hiring challenges and solutions?",
+                        "Candidate sourcing strategies?",
+                        "Recruitment automation tools?"
+                    ]
+                };
+
+                const categoryTitles = titles[category] || titles.marketing;
+                return categoryTitles[Math.floor(Math.random() * categoryTitles.length)];
+            },
+
+            getRandomDescription(category) {
+                const descriptions = {
+                    marketing: [
+                        "Looking for effective ways to measure and improve our content marketing efforts. What metrics and tools do you recommend?",
+                        "Need recommendations for marketing automation tools that work well for small teams with limited resources.",
+                        "Seeking strategies to improve our content distribution and reach. What's working for you?"
+                    ],
+                    sales: [
+                        "Building a B2B sales process and need advice on follow-up sequences that convert.",
+                        "Looking for sales automation tools that integrate well with popular CRMs.",
+                        "Our email open rates are declining. What strategies are working in 2024?"
+                    ],
+                    tech: [
+                        "Building a new SaaS product and need advice on the tech stack selection.",
+                        "Looking for best practices in building scalable architecture for B2B applications.",
+                        "Need recommendations for API design patterns that work well for B2B integration."
+                    ],
+                    startup: [
+                        "Early-stage startup looking for strategies to find and validate first B2B customers.",
+                        "Need advice on pricing strategy for a B2B SaaS product.",
+                        "Looking for effective ways to validate market need without full product build."
+                    ],
+                    recruiting: [
+                        "Building a technical interview process and need best practices advice.",
+                        "Struggling with remote hiring challenges. What tools and processes work best?",
+                        "Need recommendations for candidate sourcing tools and strategies."
+                    ]
+                };
+
+                const categoryDescriptions = descriptions[category] || descriptions.marketing;
+                return categoryDescriptions[Math.floor(Math.random() * categoryDescriptions.length)];
+            },
+
+            getRandomCategories() {
+                const additionalCategories = [
+                    'b2b', 'automation', 'tools', 'strategy', 'growth',
+                    'analytics', 'optimization', 'productivity', 'scaling'
+                ];
+                const numCategories = Math.floor(Math.random() * 3) + 1;
+                const categories = [];
+                
+                for (let i = 0; i < numCategories; i++) {
+                    const category = additionalCategories[Math.floor(Math.random() * additionalCategories.length)];
+                    if (!categories.includes(category)) {
+                        categories.push(category);
+                    }
+                }
+                
+                return categories;
+            },
+
+            updateUI() {
+                this.ProblemManager.displayAllProblems();
+                this.BookmarkManager.updateUI();
+            }
+        };
+
+        // Initialize the application when the DOM is ready
+        document.addEventListener('DOMContentLoaded', () => App.init());
+
+        // Add this helper function for debugging
+        function debug(module, action, data) {
+            console.log(`[${module}] ${action}:`, data);
+        }
+
+        // Add Reddit API integration
+        App.RedditAPI = {
+            async searchProblems(query, filters = {}) {
+                try {
+                    const token = RedditOAuth.getToken();
+                    const headers = token ? {
+                        'Authorization': `Bearer ${token}`
+                    } : {};
+
+                    const subreddits = App.redditConfig.subreddits.join('+');
+                    const params = new URLSearchParams({
+                        q: query,
+                        subreddit: subreddits,
+                        sort: filters.sortBy || 'relevance',
+                        t: filters.timeFilter || 'month',
+                        limit: '100'
+                    });
+
+                    const response = await fetch(`https://oauth.reddit.com/search?${params}`, {
+                        headers
+                    });
+
+                    if (!response.ok) throw new Error('Reddit API request failed');
+
+                    const data = await response.json();
+                    return this.processRedditResults(data.data.children, query);
+                } catch (error) {
+                    console.error('Reddit API error:', error);
+                    return [];
+                }
+            },
+
+            processRedditResults(posts, query) {
+                return posts.map(post => {
+                    const data = post.data;
+                    const relevanceScore = this.calculateRelevance(data, query);
+                    
+                    return {
+                        id: data.id,
+                        title: data.title,
+                        description: data.selftext.substring(0, 200) + (data.selftext.length > 200 ? '...' : ''),
+                        date: `Posted ${this.getTimeDifference(data.created_utc)}`,
+                        tag: this.getPostTag(data),
+                        tagColor: this.getTagColor(data),
+                        comments: `${data.num_comments} comments`,
+                        upvotes: `${data.score} upvotes`,
+                        relevance: `${relevanceScore}% relevance`,
+                        redditUrl: `https://reddit.com${data.permalink}`,
+                        subreddit: data.subreddit,
+                        categories: this.extractCategories(data)
+                    };
+                }).sort((a, b) => parseInt(b.relevance) - parseInt(a.relevance));
+            },
+
+            calculateRelevance(post, query) {
+                let score = 0;
+                const queryTerms = query.toLowerCase().split(' ');
+                
+                // Title match
+                queryTerms.forEach(term => {
+                    if (post.title.toLowerCase().includes(term)) score += 30;
+                });
+                
+                // Content match
+                queryTerms.forEach(term => {
+                    if (post.selftext.toLowerCase().includes(term)) score += 20;
+                });
+                
+                // Engagement score
+                score += Math.min(post.score / 100, 20); // Up to 20 points for upvotes
+                score += Math.min(post.num_comments * 2, 20); // Up to 20 points for comments
+                
+                // Recent content bonus
+                const ageInDays = (Date.now() / 1000 - post.created_utc) / 86400;
+                if (ageInDays < 7) score += 10;
+                
+                return Math.min(Math.round(score), 100);
+            },
+
+            getPostTag(post) {
+                if (post.score > 1000) return 'HOT';
+                if (post.score > 500) return 'TRENDING';
+                if (post.score > 100) return 'RISING';
+                return 'NEW';
+            },
+
+            getTagColor(post) {
+                if (post.score > 1000) return 'red';
+                if (post.score > 500) return 'orange';
+                if (post.score > 100) return 'yellow';
+                return 'green';
+            },
+
+            getTimeDifference(timestamp) {
+                const seconds = Math.floor((Date.now() / 1000) - timestamp);
+                const days = Math.floor(seconds / 86400);
+                
+                if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
+                const hours = Math.floor(seconds / 3600);
+                if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                const minutes = Math.floor(seconds / 60);
+                if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                return 'just now';
+            },
+
+            extractCategories(post) {
+                const categories = [post.subreddit];
+                
+                // Extract hashtags and keywords
+                const text = `${post.title} ${post.selftext}`.toLowerCase();
+                const keywords = ['marketing', 'sales', 'tech', 'startup', 'recruiting', 'b2b', 'saas'];
+                keywords.forEach(keyword => {
+                    if (text.includes(keyword) && !categories.includes(keyword)) {
+                        categories.push(keyword);
+                    }
+                });
+                
+                return categories.slice(0, 4); // Limit to 4 categories
+            }
+        };
+    </script>
+</body>
+</html>
