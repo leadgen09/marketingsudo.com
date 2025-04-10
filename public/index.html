@@ -3,19 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketingSudo - Lead Magnet Generator</title>
+    <title>MarketingSudo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body class="bg-gray-50">
-    <div class="min-h-screen p-8">
-        <header class="max-w-4xl mx-auto mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Lead Magnet Generator</h1>
-            <p class="text-gray-600 mb-8">Create compelling case studies and data-driven stories</p>
-        </header>
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-gray-900">MarketingSudo</h1>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <button onclick="showSection('problem-discovery')" class="nav-link border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Problem Discovery
+                        </button>
+                        <button onclick="showSection('lead-magnet')" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Lead Magnet
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        <main class="max-w-4xl mx-auto">
+    <div class="min-h-screen p-8">
+        <!-- Problem Discovery Section -->
+        <div id="problem-discovery" class="max-w-4xl mx-auto">
+            <header class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Problem Discovery</h2>
+                <p class="text-gray-600">Find relevant problems in your niche</p>
+            </header>
+
+            <!-- Search Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <div class="max-w-2xl mx-auto">
+                    <!-- Search Input -->
+                    <div class="relative mb-4">
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Search for problems (e.g., lead generation, marketing automation)"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                        <button 
+                            id="searchButton"
+                            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                        >
+                            Search
+                        </button>
+                    </div>
+
+                    <!-- Search Options -->
+                    <div class="flex flex-wrap gap-4 mb-4">
+                        <!-- Time Period Selector -->
+                        <div class="flex items-center space-x-2">
+                            <label class="text-sm text-gray-600">Time:</label>
+                            <select id="timeFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="day">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month" selected>This Month</option>
+                                <option value="year">This Year</option>
+                                <option value="all">All Time</option>
+                            </select>
+                        </div>
+
+                        <!-- Sort Order Selector -->
+                        <div class="flex items-center space-x-2">
+                            <label class="text-sm text-gray-600">Sort by:</label>
+                            <select id="sortFilter" class="text-sm border rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="relevance" selected>Relevance</option>
+                                <option value="new">Newest</option>
+                                <option value="top">Most Upvoted</option>
+                                <option value="comments">Most Comments</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Quick Search Suggestions -->
+                    <div class="text-sm text-gray-500">
+                        Popular: 
+                        <button class="text-blue-500 hover:underline" onclick="quickSearch('lead generation')">lead generation</button>,
+                        <button class="text-blue-500 hover:underline" onclick="quickSearch('marketing automation')">marketing automation</button>,
+                        <button class="text-blue-500 hover:underline" onclick="quickSearch('email marketing')">email marketing</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="hidden">
+                <div class="animate-pulse space-y-4">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
+                        <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Stats -->
+            <div id="resultsStats" class="hidden mb-4 text-sm text-gray-600"></div>
+
+            <!-- Results Container -->
+            <div id="resultsContainer"></div>
+        </div>
+
+        <!-- Lead Magnet Section -->
+        <div id="lead-magnet" class="max-w-4xl mx-auto hidden">
+            <header class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Lead Magnet Generator</h2>
+                <p class="text-gray-600">Create compelling case studies and data-driven stories</p>
+            </header>
+
             <!-- Lead Magnet Form -->
             <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
                 <div class="space-y-6">
@@ -94,18 +196,163 @@
                     <!-- Preview content will be inserted here -->
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 
     <script>
-        // Template selection
+        // Navigation functions
+        function showSection(section) {
+            // Update navigation styles
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('border-blue-500', 'text-gray-900');
+                link.classList.add('border-transparent', 'text-gray-500');
+            });
+            const activeLink = document.querySelector(`[onclick="showSection('${section}')"]`);
+            activeLink.classList.remove('border-transparent', 'text-gray-500');
+            activeLink.classList.add('border-blue-500', 'text-gray-900');
+
+            // Show/hide sections
+            document.getElementById('problem-discovery').classList.toggle('hidden', section !== 'problem-discovery');
+            document.getElementById('lead-magnet').classList.toggle('hidden', section !== 'lead-magnet');
+        }
+
+        // Reddit search functions
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const timeFilter = document.getElementById('timeFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const loadingState = document.getElementById('loadingState');
+        const resultsStats = document.getElementById('resultsStats');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        searchButton.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+        timeFilter.addEventListener('change', handleSearch);
+        sortFilter.addEventListener('change', handleSearch);
+
+        function quickSearch(query) {
+            searchInput.value = query;
+            handleSearch();
+        }
+
+        async function handleSearch() {
+            const query = searchInput.value.trim();
+            if (!query) return;
+
+            showLoading();
+            hideError();
+
+            try {
+                const time = timeFilter.value;
+                const sort = sortFilter.value;
+                
+                const searchUrl = `https://www.reddit.com/search.json?q=${encodeURIComponent(query)}+self:yes&sort=${sort}&t=${time}&limit=25`;
+                const response = await fetch(searchUrl);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch results');
+                }
+
+                const data = await response.json();
+                const problems = processRedditResults(data.data.children);
+                displayResults(problems, query);
+            } catch (error) {
+                console.error('Search error:', error);
+                showError(error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function processRedditResults(posts) {
+            return posts
+                .filter(post => post.data.is_self && !post.data.over_18)
+                .map(post => ({
+                    title: post.data.title,
+                    description: post.data.selftext.substring(0, 200) + '...',
+                    date: formatDate(post.data.created_utc),
+                    comments: post.data.num_comments,
+                    upvotes: post.data.ups,
+                    url: `https://reddit.com${post.data.permalink}`,
+                    subreddit: post.data.subreddit_name_prefixed,
+                    tag: getPostTag(post.data)
+                }));
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp * 1000);
+            const now = new Date();
+            const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            return date.toLocaleDateString();
+        }
+
+        function getPostTag(postData) {
+            if (postData.ups > 500) return 'HOT';
+            if (postData.ups > 100) return 'TRENDING';
+            return 'NEW';
+        }
+
+        function displayResults(problems, query) {
+            resultsStats.classList.remove('hidden');
+            resultsStats.textContent = `Found ${problems.length} results for "${query}" • ${timeFilter.options[timeFilter.selectedIndex].text} • Sorted by ${sortFilter.options[sortFilter.selectedIndex].text}`;
+
+            if (problems.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        No results found. Try different keywords or filters.
+                    </div>
+                `;
+                return;
+            }
+
+            resultsContainer.innerHTML = problems.map(problem => `
+                <div class="bg-white rounded-lg shadow p-6 mb-4 hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-2">
+                        <span class="px-2 py-1 bg-red-100 text-red-600 rounded text-sm mr-2">${problem.tag}</span>
+                        <span class="text-sm text-gray-500">${problem.date}</span>
+                        <span class="text-sm text-gray-500 ml-2">${problem.subreddit}</span>
+                    </div>
+                    <h2 class="text-xl font-bold mb-2">
+                        <a href="${problem.url}" target="_blank" class="hover:text-blue-600">
+                            ${problem.title}
+                        </a>
+                    </h2>
+                    <p class="text-gray-600 mb-4">${problem.description}</p>
+                    <div class="flex items-center text-sm text-gray-500 space-x-4">
+                        <span>${problem.comments} comments</span>
+                        <span>${problem.upvotes} upvotes</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showLoading() {
+            loadingState.classList.remove('hidden');
+            resultsContainer.innerHTML = '';
+            resultsStats.classList.add('hidden');
+        }
+
+        function hideLoading() {
+            loadingState.classList.add('hidden');
+        }
+
+        function hideError() {
+            // Implementation remains the same
+        }
+
+        // Lead magnet functions
         function selectTemplate(type) {
             document.querySelectorAll('.story-type-btn').forEach(btn => {
                 btn.classList.remove('border-blue-500', 'bg-blue-50');
             });
             document.querySelector(`[data-type="${type}"]`).classList.add('border-blue-500', 'bg-blue-50');
             
-            // Set default content based on template
             if (type === 'quick-win') {
                 document.getElementById('headline').value = 'How I Made a Client $10,000 While Watching Reacher';
                 document.getElementById('results').value = '- Generated $10,000 in revenue\n- Closed 2 high-ticket clients\n- Only took 8 hours';
@@ -122,7 +369,6 @@
             updatePreview();
         }
 
-        // Preview generation
         function updatePreview() {
             const headline = document.getElementById('headline').value;
             const results = document.getElementById('results').value;
@@ -157,7 +403,6 @@
             document.getElementById('previewContent').innerHTML = previewHtml;
         }
 
-        // Export functions
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -211,11 +456,12 @@ ${cta}`;
 
         // Event listeners for real-time preview
         ['headline', 'results', 'story', 'takeaways', 'cta'].forEach(id => {
-            document.getElementById(id).addEventListener('input', updatePreview);
+            document.getElementById(id)?.addEventListener('input', updatePreview);
         });
 
-        // Initialize with case study template
-        selectTemplate('case-study');
+        // Initialize
+        showSection('problem-discovery');
+        quickSearch('marketing strategy');
     </script>
 </body>
 </html> 
