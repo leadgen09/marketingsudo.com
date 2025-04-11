@@ -72,6 +72,62 @@
                         <p class="text-gray-600">Find relevant problems in your niche</p>
                     </header>
 
+                    <!-- Persona Selection -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <h3 class="text-lg font-semibold mb-4">Select Your Persona</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <button onclick="selectPersona('cold-emailer')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                <i class="ri-mail-send-line text-2xl mb-2 text-blue-500"></i>
+                                <h4 class="font-medium">Cold Emailer</h4>
+                                <p class="text-sm text-gray-600">B2B outreach & lead generation</p>
+                            </button>
+                            <button onclick="selectPersona('newsletter-owner')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                <i class="ri-newspaper-line text-2xl mb-2 text-blue-500"></i>
+                                <h4 class="font-medium">Newsletter Owner</h4>
+                                <p class="text-sm text-gray-600">Digital product & content</p>
+                            </button>
+                            <button onclick="selectPersona('saas-founder')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                <i class="ri-building-2-line text-2xl mb-2 text-blue-500"></i>
+                                <h4 class="font-medium">SaaS Founder</h4>
+                                <p class="text-sm text-gray-600">Product-led growth</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Problem Stack Visualizer -->
+                    <div id="problemStack" class="bg-white rounded-lg shadow-lg p-6 mb-8 hidden">
+                        <h3 class="text-lg font-semibold mb-4">Problem Analysis</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-red-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="ri-alert-line text-red-500 mr-2"></i>
+                                    <h4 class="font-medium text-red-700">Surface Problem</h4>
+                                </div>
+                                <p id="surfaceProblem" class="text-gray-700"></p>
+                            </div>
+                            <div class="p-4 bg-orange-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="ri-search-line text-orange-500 mr-2"></i>
+                                    <h4 class="font-medium text-orange-700">Root Problem</h4>
+                                </div>
+                                <p id="rootProblem" class="text-gray-700"></p>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="ri-eye-off-line text-blue-500 mr-2"></i>
+                                    <h4 class="font-medium text-blue-700">Hidden Problem</h4>
+                                </div>
+                                <p id="hiddenProblem" class="text-gray-700"></p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-end">
+                            <button onclick="exportProblemAnalysis()" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                <i class="ri-download-line mr-2"></i>
+                                Export Analysis
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Search Section -->
                     <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
                         <div class="max-w-2xl mx-auto">
@@ -152,6 +208,28 @@
                         <p class="text-gray-600">Create compelling case studies and data-driven stories</p>
                     </header>
 
+                    <!-- Industry Presets -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <h3 class="text-lg font-semibold mb-4">Industry Presets</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <button onclick="loadPreset('b2b-saas')" class="preset-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                <i class="ri-building-2-line text-2xl mb-2 text-blue-500"></i>
+                                <h4 class="font-medium">B2B SaaS</h4>
+                                <p class="text-sm text-gray-600">Product-led growth</p>
+                            </button>
+                            <button onclick="loadPreset('agency')" class="preset-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                <i class="ri-service-line text-2xl mb-2 text-blue-500"></i>
+                                <h4 class="font-medium">Agency</h4>
+                                <p class="text-sm text-gray-600">Service-based business</p>
+                            </button>
+                            <button onclick="loadPreset('solopreneur')" class="preset-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
+                                <i class="ri-user-line text-2xl mb-2 text-blue-500"></i>
+                                <h4 class="font-medium">Solopreneur</h4>
+                                <p class="text-sm text-gray-600">One-person business</p>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Lead Magnet Form -->
                     <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
                         <div class="space-y-6">
@@ -223,6 +301,37 @@
                         </div>
                     </div>
 
+                    <!-- Additional Resources -->
+                    <div id="additionalResources" class="bg-white rounded-lg shadow-lg p-6 mt-8 hidden">
+                        <h3 class="text-lg font-semibold mb-4">Additional Resources</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="p-4 border rounded-lg">
+                                <h4 class="font-medium mb-2">Landing Page Template</h4>
+                                <p class="text-sm text-gray-600 mb-4">Notion template for your lead magnet landing page</p>
+                                <a href="#" class="text-blue-500 hover:underline flex items-center">
+                                    <i class="ri-external-link-line mr-2"></i>
+                                    Download Template
+                                </a>
+                            </div>
+                            <div class="p-4 border rounded-lg">
+                                <h4 class="font-medium mb-2">CTA Frameworks</h4>
+                                <p class="text-sm text-gray-600 mb-4">Best-performing call-to-action templates</p>
+                                <a href="#" class="text-blue-500 hover:underline flex items-center">
+                                    <i class="ri-external-link-line mr-2"></i>
+                                    View Frameworks
+                                </a>
+                            </div>
+                            <div class="p-4 border rounded-lg">
+                                <h4 class="font-medium mb-2">Distribution Guide</h4>
+                                <p class="text-sm text-gray-600 mb-4">Where and how to promote your lead magnet</p>
+                                <a href="#" class="text-blue-500 hover:underline flex items-center">
+                                    <i class="ri-external-link-line mr-2"></i>
+                                    Read Guide
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Preview Section -->
                     <div id="preview" class="bg-white rounded-lg shadow-lg p-6">
                         <h2 class="text-xl font-bold mb-4">Preview</h2>
@@ -239,65 +348,119 @@
                         <p class="text-gray-600">Connect with fellow marketers and grow together</p>
                     </header>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- WhatsApp Group -->
-                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-blue-500 border-2 border-transparent">
-                            <div class="flex items-center mb-4">
-                                <i class="ri-whatsapp-line text-4xl text-green-500 mr-4"></i>
+                    <!-- Group Finder Quiz -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <h3 class="text-lg font-semibold mb-4">Find Your Perfect Community</h3>
+                        <div id="quizContainer">
+                            <div class="space-y-6">
                                 <div>
-                                    <h3 class="text-xl font-semibold">WhatsApp Group</h3>
-                                    <p class="text-gray-600">Daily marketing discussions & tips</p>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">What's your primary focus?</label>
+                                    <select id="quizFocus" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="">Select your focus</option>
+                                        <option value="b2b">B2B Marketing</option>
+                                        <option value="b2c">B2C Marketing</option>
+                                        <option value="saas">SaaS Growth</option>
+                                        <option value="agency">Agency Growth</option>
+                                    </select>
                                 </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">What's your biggest challenge?</label>
+                                    <select id="quizChallenge" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="">Select your challenge</option>
+                                        <option value="leads">Generating Leads</option>
+                                        <option value="conversion">Improving Conversion</option>
+                                        <option value="retention">Customer Retention</option>
+                                        <option value="scaling">Scaling Operations</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Preferred communication style?</label>
+                                    <select id="quizStyle" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="">Select your style</option>
+                                        <option value="casual">Casual & Quick</option>
+                                        <option value="formal">Formal & Detailed</option>
+                                        <option value="mixed">Mix of Both</option>
+                                    </select>
+                                </div>
+                                <button onclick="submitQuiz()" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                                    Find My Communities
+                                </button>
                             </div>
-                            <p class="text-gray-700 mb-4">Join our active WhatsApp community for real-time discussions, quick tips, and networking opportunities.</p>
-                            <button class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
-                                Join Group
-                            </button>
                         </div>
-
-                        <!-- Slack Workspace -->
-                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-purple-500 border-2 border-transparent">
-                            <div class="flex items-center mb-4">
-                                <i class="ri-slack-line text-4xl text-purple-500 mr-4"></i>
-                                <div>
-                                    <h3 class="text-xl font-semibold">Slack Workspace</h3>
-                                    <p class="text-gray-600">Organized discussions & resources</p>
+                        <div id="quizResults" class="hidden mt-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-medium text-blue-700 mb-2">Perfect Communities for You</h4>
+                                <p class="text-gray-700 mb-4">We're curating the best communities based on your preferences. Drop your email to get early access to our hand-picked recommendations.</p>
+                                <div class="flex gap-4">
+                                    <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                                        Get Access
+                                    </button>
                                 </div>
                             </div>
-                            <p class="text-gray-700 mb-4">Access our Slack workspace for organized channels, resource sharing, and in-depth discussions.</p>
-                            <button class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors">
-                                Join Workspace
-                            </button>
                         </div>
+                    </div>
 
-                        <!-- Discord Server -->
-                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-indigo-500 border-2 border-transparent">
-                            <div class="flex items-center mb-4">
-                                <i class="ri-discord-line text-4xl text-indigo-500 mr-4"></i>
-                                <div>
-                                    <h3 class="text-xl font-semibold">Discord Server</h3>
-                                    <p class="text-gray-600">Voice chats & community events</p>
+                    <!-- Platform Leaderboard -->
+                    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <h3 class="text-lg font-semibold mb-4">Top Marketing Communities</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-4 border rounded-lg">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="ri-whatsapp-line text-2xl text-green-500"></i>
                                 </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">WhatsApp Groups</h4>
+                                    <p class="text-sm text-gray-600">Real-time discussions & quick tips</p>
+                                </div>
+                                <span class="text-sm text-gray-500">Top 10 coming soon</span>
                             </div>
-                            <p class="text-gray-700 mb-4">Join our Discord server for voice chats, community events, and real-time collaboration.</p>
-                            <button class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-colors">
-                                Join Server
-                            </button>
+                            <div class="flex items-center p-4 border rounded-lg">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="ri-slack-line text-2xl text-purple-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">Slack Workspaces</h4>
+                                    <p class="text-sm text-gray-600">Organized discussions & resources</p>
+                                </div>
+                                <span class="text-sm text-gray-500">Top 10 coming soon</span>
+                            </div>
+                            <div class="flex items-center p-4 border rounded-lg">
+                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="ri-discord-line text-2xl text-indigo-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-medium">Discord Servers</h4>
+                                    <p class="text-sm text-gray-600">Voice chats & community events</p>
+                                </div>
+                                <span class="text-sm text-gray-500">Top 10 coming soon</span>
+                            </div>
                         </div>
+                    </div>
 
-                        <!-- Telegram Channel -->
-                        <div class="community-card bg-white rounded-lg shadow-lg p-6 hover:border-blue-400 border-2 border-transparent">
-                            <div class="flex items-center mb-4">
-                                <i class="ri-telegram-line text-4xl text-blue-400 mr-4"></i>
-                                <div>
-                                    <h3 class="text-xl font-semibold">Telegram Channel</h3>
-                                    <p class="text-gray-600">News & updates</p>
-                                </div>
+                    <!-- Community Growth Blueprint -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4">Community Growth Blueprint</h3>
+                        <div class="prose max-w-none">
+                            <h4 class="text-blue-700">How to turn 3 group posts a week into 100 subscribers/month (without spamming)</h4>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Find 3-5 high-quality groups in your niche</li>
+                                <li>Create a content calendar with 3 types of posts:
+                                    <ul class="list-disc pl-5">
+                                        <li>Value posts (tips, insights)</li>
+                                        <li>Engagement posts (questions, polls)</li>
+                                        <li>Story posts (case studies, experiences)</li>
+                                    </ul>
+                                </li>
+                                <li>Engage with other members' posts daily</li>
+                                <li>Include a subtle CTA in your bio/profile</li>
+                                <li>Track which posts drive the most engagement</li>
+                            </ol>
+                            <div class="mt-4">
+                                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                                    Download Full Blueprint
+                                </button>
                             </div>
-                            <p class="text-gray-700 mb-4">Stay updated with our Telegram channel for the latest marketing news and updates.</p>
-                            <button class="w-full bg-blue-400 text-white py-2 rounded-lg hover:bg-blue-500 transition-colors">
-                                Join Channel
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -564,9 +727,129 @@ ${cta}`;
             document.getElementById(id)?.addEventListener('input', updatePreview);
         });
 
+        // Add these new functions to your existing script
+        function selectPersona(persona) {
+            document.querySelectorAll('.persona-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'bg-blue-50');
+            });
+            document.querySelector(`[onclick="selectPersona('${persona}')"]`).classList.add('border-blue-500', 'bg-blue-50');
+
+            const problems = {
+                'cold-emailer': {
+                    surface: "Low response rates and high bounce rates in cold outreach",
+                    root: "Targeting wrong ICP and using generic messaging",
+                    hidden: "Not leveraging social proof and personalization effectively"
+                },
+                'newsletter-owner': {
+                    surface: "Low open rates and subscriber growth",
+                    root: "Content not aligned with audience needs",
+                    hidden: "Missing clear value proposition and content distribution strategy"
+                },
+                'saas-founder': {
+                    surface: "Low conversion rates and high churn",
+                    root: "Product-market fit issues and poor onboarding",
+                    hidden: "Not leveraging customer success stories and social proof"
+                }
+            };
+
+            document.getElementById('problemStack').classList.remove('hidden');
+            document.getElementById('surfaceProblem').textContent = problems[persona].surface;
+            document.getElementById('rootProblem').textContent = problems[persona].root;
+            document.getElementById('hiddenProblem').textContent = problems[persona].hidden;
+
+            // Auto-fill search with relevant terms
+            const searchTerms = {
+                'cold-emailer': 'cold email response rates bounce rates',
+                'newsletter-owner': 'newsletter growth open rates',
+                'saas-founder': 'saas conversion churn onboarding'
+            };
+            document.getElementById('searchInput').value = searchTerms[persona];
+            handleSearch();
+        }
+
+        function exportProblemAnalysis() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const surface = document.getElementById('surfaceProblem').textContent;
+            const root = document.getElementById('rootProblem').textContent;
+            const hidden = document.getElementById('hiddenProblem').textContent;
+            
+            doc.setFontSize(16);
+            doc.text('Problem Analysis Report', 20, 20);
+            
+            doc.setFontSize(12);
+            doc.text('Surface Problem:', 20, 40);
+            doc.text(surface, 20, 50, { maxWidth: 170 });
+            
+            doc.text('Root Problem:', 20, 80);
+            doc.text(root, 20, 90, { maxWidth: 170 });
+            
+            doc.text('Hidden Problem:', 20, 120);
+            doc.text(hidden, 20, 130, { maxWidth: 170 });
+            
+            doc.save('problem-analysis.pdf');
+        }
+
+        function loadPreset(preset) {
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'bg-blue-50');
+            });
+            document.querySelector(`[onclick="loadPreset('${preset}')"]`).classList.add('border-blue-500', 'bg-blue-50');
+
+            const presets = {
+                'b2b-saas': {
+                    headline: "How We Grew Our SaaS from 0 to $50K MRR in 6 Months",
+                    results: "- Achieved $50K MRR\n- 500+ active users\n- 85% retention rate",
+                    story: "When we launched our SaaS product, we knew we had something special. But getting those first customers was tough.\n\nWe tried everything from cold outreach to content marketing. What worked? A combination of product-led growth and strategic partnerships.",
+                    takeaways: "- Focus on product-led growth\n- Build strategic partnerships\n- Leverage customer success stories",
+                    cta: "Want our complete SaaS growth playbook? Click here to download!"
+                },
+                'agency': {
+                    headline: "How We Generated $100K in New Business with One Case Study",
+                    results: "- $100K in new business\n- 15 new clients\n- 3x higher conversion rate",
+                    story: "As a digital agency, we struggled to stand out in a crowded market. Then we discovered the power of case studies.\n\nWe documented one of our most successful projects in detail, showing exactly how we helped a client achieve their goals.",
+                    takeaways: "- Document your process\n- Show real results\n- Make it replicable",
+                    cta: "Want to see the exact case study that generated $100K? Download it here!"
+                },
+                'solopreneur': {
+                    headline: "How I Built a $10K/Month Business Working 20 Hours a Week",
+                    results: "- $10K monthly revenue\n- 20 hours/week\n- 100% remote",
+                    story: "I was tired of the 9-to-5 grind. So I started a side hustle that turned into a full-time business.\n\nHere's exactly how I did it, step by step, with all the mistakes and lessons learned along the way.",
+                    takeaways: "- Start small and scale\n- Automate everything\n- Focus on high-value tasks",
+                    cta: "Want my exact business blueprint? Grab it here!"
+                }
+            };
+
+            const presetData = presets[preset];
+            document.getElementById('headline').value = presetData.headline;
+            document.getElementById('results').value = presetData.results;
+            document.getElementById('story').value = presetData.story;
+            document.getElementById('takeaways').value = presetData.takeaways;
+            document.getElementById('cta').value = presetData.cta;
+
+            document.getElementById('additionalResources').classList.remove('hidden');
+            updatePreview();
+        }
+
         // Initialize
         showSection('problem-discovery');
         quickSearch('marketing strategy');
+
+        // Add these new functions to your existing script
+        function submitQuiz() {
+            const focus = document.getElementById('quizFocus').value;
+            const challenge = document.getElementById('quizChallenge').value;
+            const style = document.getElementById('quizStyle').value;
+
+            if (!focus || !challenge || !style) {
+                alert('Please answer all questions');
+                return;
+            }
+
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.getElementById('quizResults').classList.remove('hidden');
+        }
     </script>
 </body>
 </html> 
