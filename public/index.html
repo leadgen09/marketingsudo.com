@@ -39,6 +39,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .tooltip {
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+        .group:hover .tooltip {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="gradient-bg">
@@ -550,17 +557,22 @@
                     <p class="text-4xl font-bold mb-6">$0</p>
                     <p class="text-gray-600 mb-6">Perfect for getting started</p>
                     <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
+                        <li class="flex items-center group relative">
                             <i class="ri-check-line text-green-500 mr-2"></i>
                             <span class="font-medium">Unlimited Problem Discovery</span>
+                            <div class="tooltip hidden group-hover:block absolute left-0 -top-12 w-64 p-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg z-10">
+                                Get unlimited niche-specific problems your audience actually wants solved
+                                <div class="absolute -bottom-1 left-4 w-3 h-3 bg-gray-800 transform rotate-45"></div>
+                            </div>
+                            <i class="ri-information-line text-gray-400 ml-1 cursor-help"></i>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>1 Lead Magnet Idea</span>
+                            <span><strong>1 Lead Magnet Idea</strong></span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>2 Vetted Communities</span>
+                            <span><strong>2 Vetted Communities</strong></span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
@@ -586,21 +598,26 @@
                     <p class="text-4xl font-bold mb-6">$19</p>
                     <p class="text-gray-600 mb-6">For creators growing their audience</p>
                     <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
+                        <li class="flex items-center group relative">
                             <i class="ri-check-line text-green-500 mr-2"></i>
                             <span class="font-medium">Unlimited Problem Discovery</span>
+                            <div class="tooltip hidden group-hover:block absolute left-0 -top-12 w-64 p-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg z-10">
+                                Get unlimited niche-specific problems your audience actually wants solved
+                                <div class="absolute -bottom-1 left-4 w-3 h-3 bg-gray-800 transform rotate-45"></div>
+                            </div>
+                            <i class="ri-information-line text-gray-400 ml-1 cursor-help"></i>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>5 Lead Magnet Ideas / month</span>
+                            <span><strong>5 Lead Magnet Ideas</strong> / month</span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>10 Vetted Communities</span>
+                            <span><strong>10 Vetted Communities</strong></span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>Pro Editor + PDF Export</span>
+                            <span><strong>Pro Editor + PDF Export</strong></span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
@@ -619,33 +636,38 @@
                     <p class="text-4xl font-bold mb-6">$29</p>
                     <p class="text-gray-600 mb-6">For serious marketers & lead gen pros</p>
                     <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
+                        <li class="flex items-center group relative">
                             <i class="ri-check-line text-green-500 mr-2"></i>
                             <span class="font-medium">Unlimited Problem Discovery</span>
+                            <div class="tooltip hidden group-hover:block absolute left-0 -top-12 w-64 p-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg z-10">
+                                Get unlimited niche-specific problems your audience actually wants solved
+                                <div class="absolute -bottom-1 left-4 w-3 h-3 bg-gray-800 transform rotate-45"></div>
+                            </div>
+                            <i class="ri-information-line text-gray-400 ml-1 cursor-help"></i>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>20 Lead Magnet Ideas / month</span>
+                            <span><strong>20 Lead Magnet Ideas</strong> / month</span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>30 Vetted Communities</span>
+                            <span><strong>30 Vetted Communities</strong></span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>Pro Editor + PDF Export</span>
+                            <span><strong>Pro Editor + PDF Export</strong></span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>Bonus Vault Access</span>
+                            <span><strong>Bonus Vault Access</strong></span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>Early Access to New Features</span>
+                            <span><strong>Early Access</strong> to New Features</span>
                         </li>
                         <li class="flex items-center">
                             <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>Exclusive Community Invites</span>
+                            <span><strong>Exclusive Community</strong> Invites</span>
                         </li>
                     </ul>
                     <a href="/app" class="block w-full py-3 px-4 bg-gray-100 text-gray-700 rounded-lg text-center hover:bg-gray-200 transition-colors">
