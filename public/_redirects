@@ -2,12 +2,11 @@
 / /landing.html 200
 
 # App routes
-/app/* /app.html 200
-/app /app.html 200
+/app/* /app/index.html 200
+/app /app/index.html 200
 
 # Handle direct file access
 /landing.html /landing.html 200
-/app.html /app.html 200
 
 # Fallback
 /* /landing.html 200 

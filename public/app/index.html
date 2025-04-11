@@ -69,27 +69,55 @@
                 <div id="problem-discovery" class="max-w-4xl mx-auto">
                     <header class="mb-8">
                         <h2 class="text-2xl font-bold text-gray-900">Problem Discovery</h2>
-                        <p class="text-gray-600">Find relevant problems in your niche</p>
+                        <p class="text-gray-600">What's your current struggle? We'll help you solve it fast.</p>
                     </header>
 
                     <!-- Persona Selection -->
                     <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
                         <h3 class="text-lg font-semibold mb-4">Select Your Persona</h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <button onclick="selectPersona('cold-emailer')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
-                                <i class="ri-mail-send-line text-2xl mb-2 text-blue-500"></i>
+                            <button onclick="selectPersona('cold-emailer')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all group">
+                                <i class="ri-mail-send-line text-2xl mb-2 text-blue-500 group-hover:scale-110 transition-transform"></i>
                                 <h4 class="font-medium">Cold Emailer</h4>
                                 <p class="text-sm text-gray-600">B2B outreach & lead generation</p>
+                                <div class="mt-2 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="ri-arrow-right-line"></i> Click to explore
+                                </div>
                             </button>
-                            <button onclick="selectPersona('newsletter-owner')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
-                                <i class="ri-newspaper-line text-2xl mb-2 text-blue-500"></i>
+                            <button onclick="selectPersona('newsletter-owner')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all group">
+                                <i class="ri-newspaper-line text-2xl mb-2 text-blue-500 group-hover:scale-110 transition-transform"></i>
                                 <h4 class="font-medium">Newsletter Owner</h4>
                                 <p class="text-sm text-gray-600">Digital product & content</p>
+                                <div class="mt-2 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="ri-arrow-right-line"></i> Click to explore
+                                </div>
                             </button>
-                            <button onclick="selectPersona('saas-founder')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all">
-                                <i class="ri-building-2-line text-2xl mb-2 text-blue-500"></i>
+                            <button onclick="selectPersona('saas-founder')" class="persona-btn p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all group">
+                                <i class="ri-building-2-line text-2xl mb-2 text-blue-500 group-hover:scale-110 transition-transform"></i>
                                 <h4 class="font-medium">SaaS Founder</h4>
                                 <p class="text-sm text-gray-600">Product-led growth</p>
+                                <div class="mt-2 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="ri-arrow-right-line"></i> Click to explore
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Selection Feedback -->
+                    <div id="selectionFeedback" class="bg-white rounded-lg shadow-lg p-6 mb-8 hidden">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="ri-check-line text-2xl text-green-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Got it!</h3>
+                                <p class="text-gray-600">Most creators struggle here. Let's fix it with a lead magnet idea you can use today.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-end">
+                            <button onclick="showSection('lead-magnet')" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                                <i class="ri-arrow-right-line mr-2"></i>
+                                Generate Lead Magnet
                             </button>
                         </div>
                     </div>
@@ -120,11 +148,73 @@
                                 <p id="hiddenProblem" class="text-gray-700"></p>
                             </div>
                         </div>
-                        <div class="mt-4 flex justify-end">
+                        <div class="mt-4 flex justify-between items-center">
+                            <button onclick="generateActionPlan()" class="flex items-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                                <i class="ri-file-list-line mr-2"></i>
+                                Generate Action Plan
+                            </button>
                             <button onclick="exportProblemAnalysis()" class="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                                 <i class="ri-download-line mr-2"></i>
                                 Export Analysis
                             </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Win Insights -->
+                    <div id="quickWinInsights" class="bg-white rounded-lg shadow-lg p-6 mb-8 hidden">
+                        <h3 class="text-lg font-semibold mb-4">Quick Win Insights</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-green-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="ri-lightbulb-flash-line text-green-500 mr-2"></i>
+                                    <h4 class="font-medium text-green-700">Did You Know?</h4>
+                                </div>
+                                <p id="quickWinText" class="text-gray-700"></p>
+                            </div>
+                            <div class="p-4 bg-purple-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="ri-timer-line text-purple-500 mr-2"></i>
+                                    <h4 class="font-medium text-purple-700">Time to Fix</h4>
+                                </div>
+                                <p id="timeToFix" class="text-gray-700"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multiple Problems Selection -->
+                    <div id="multipleProblems" class="bg-white rounded-lg shadow-lg p-6 mb-8 hidden">
+                        <h3 class="text-lg font-semibold mb-4">Select Additional Problems</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer group">
+                                <input type="checkbox" class="mr-3" onchange="updateProblemSelection(this)">
+                                <div>
+                                    <h4 class="font-medium">Low Engagement</h4>
+                                    <p class="text-sm text-gray-600">Posts getting little to no interaction</p>
+                                </div>
+                                <div class="ml-auto text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="ri-add-line"></i>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer group">
+                                <input type="checkbox" class="mr-3" onchange="updateProblemSelection(this)">
+                                <div>
+                                    <h4 class="font-medium">Content Creation</h4>
+                                    <p class="text-sm text-gray-600">Struggling to create consistent content</p>
+                                </div>
+                                <div class="ml-auto text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="ri-add-line"></i>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50 cursor-pointer group">
+                                <input type="checkbox" class="mr-3" onchange="updateProblemSelection(this)">
+                                <div>
+                                    <h4 class="font-medium">Lead Quality</h4>
+                                    <p class="text-sm text-gray-600">Getting leads but they're not converting</p>
+                                </div>
+                                <div class="ml-auto text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <i class="ri-add-line"></i>
+                                </div>
+                            </label>
                         </div>
                     </div>
 
@@ -141,9 +231,9 @@
                                 >
                                 <button 
                                     id="searchButton"
-                                    class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                                    class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 transition-colors"
                                 >
-                                    Search
+                                    <i class="ri-search-line"></i>
                                 </button>
                             </div>
 
@@ -254,32 +344,57 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Attention-Grabbing Headline</label>
-                                    <input type="text" id="headline" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                        placeholder="e.g., How I Generated $10,000 in 24 Hours Using One Simple Email">
+                                    <div class="flex gap-2">
+                                        <input type="text" id="headline" class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                            placeholder="e.g., How I Generated $10,000 in 24 Hours Using One Simple Email">
+                                        <button onclick="regenerateField('headline')" class="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">
+                                            <i class="ri-refresh-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Key Results (Separate with new lines)</label>
-                                    <textarea id="results" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="- Generated $10,000 in revenue&#10;- Closed 2 high-ticket clients&#10;- Only took 8 hours"></textarea>
+                                    <div class="flex gap-2">
+                                        <textarea id="results" rows="3" class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="- Generated $10,000 in revenue&#10;- Closed 2 high-ticket clients&#10;- Only took 8 hours"></textarea>
+                                        <button onclick="regenerateField('results')" class="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">
+                                            <i class="ri-refresh-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Story/Process</label>
-                                    <textarea id="story" rows="6" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="Share your story in a conversational way. Include:&#10;- The situation/challenge&#10;- What you did&#10;- How you did it&#10;- The results&#10;- Key takeaways"></textarea>
+                                    <div class="flex gap-2">
+                                        <textarea id="story" rows="6" class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="Share your story in a conversational way. Include:&#10;- The situation/challenge&#10;- What you did&#10;- How you did it&#10;- The results&#10;- Key takeaways"></textarea>
+                                        <button onclick="regenerateField('story')" class="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">
+                                            <i class="ri-refresh-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Key Takeaways/Tips</label>
-                                    <textarea id="takeaways" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="- Keep your cold emails simple and direct&#10;- Focus on local businesses for quick wins&#10;- Don't overcomplicate the process"></textarea>
+                                    <div class="flex gap-2">
+                                        <textarea id="takeaways" rows="3" class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="- Keep your cold emails simple and direct&#10;- Focus on local businesses for quick wins&#10;- Don't overcomplicate the process"></textarea>
+                                        <button onclick="regenerateField('takeaways')" class="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">
+                                            <i class="ri-refresh-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Call to Action</label>
-                                    <input type="text" id="cta" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="e.g., Want to learn more? DM me for the exact email template I used">
+                                    <div class="flex gap-2">
+                                        <input type="text" id="cta" class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            placeholder="e.g., Want to learn more? DM me for the exact email template I used">
+                                        <button onclick="regenerateField('cta')" class="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">
+                                            <i class="ri-refresh-line"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -301,40 +416,36 @@
                         </div>
                     </div>
 
-                    <!-- Additional Resources -->
-                    <div id="additionalResources" class="bg-white rounded-lg shadow-lg p-6 mt-8 hidden">
-                        <h3 class="text-lg font-semibold mb-4">Additional Resources</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="p-4 border rounded-lg">
-                                <h4 class="font-medium mb-2">Landing Page Template</h4>
-                                <p class="text-sm text-gray-600 mb-4">Notion template for your lead magnet landing page</p>
-                                <a href="#" class="text-blue-500 hover:underline flex items-center">
-                                    <i class="ri-external-link-line mr-2"></i>
-                                    Download Template
-                                </a>
+                    <!-- Pro Tips -->
+                    <div id="proTips" class="bg-white rounded-lg shadow-lg p-6 mb-8 hidden">
+                        <h3 class="text-lg font-semibold mb-4">Pro Tips</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-yellow-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="ri-lightbulb-flash-line text-yellow-500 mr-2"></i>
+                                    <h4 class="font-medium text-yellow-700">Distribution Strategy</h4>
+                                </div>
+                                <p class="text-gray-700">Pair this lead magnet with a Reddit post and DM follow-up to get 20+ subs/day. Post in 3-5 relevant subreddits and engage with comments.</p>
                             </div>
-                            <div class="p-4 border rounded-lg">
-                                <h4 class="font-medium mb-2">CTA Frameworks</h4>
-                                <p class="text-sm text-gray-600 mb-4">Best-performing call-to-action templates</p>
-                                <a href="#" class="text-blue-500 hover:underline flex items-center">
-                                    <i class="ri-external-link-line mr-2"></i>
-                                    View Frameworks
-                                </a>
-                            </div>
-                            <div class="p-4 border rounded-lg">
-                                <h4 class="font-medium mb-2">Distribution Guide</h4>
-                                <p class="text-sm text-gray-600 mb-4">Where and how to promote your lead magnet</p>
-                                <a href="#" class="text-blue-500 hover:underline flex items-center">
-                                    <i class="ri-external-link-line mr-2"></i>
-                                    Read Guide
-                                </a>
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <div class="flex items-center mb-2">
+                                    <i class="ri-timer-line text-blue-500 mr-2"></i>
+                                    <h4 class="font-medium text-blue-700">Timing</h4>
+                                </div>
+                                <p class="text-gray-700">Best posting times: Tuesday 10am EST and Thursday 2pm EST. Schedule your posts for maximum visibility.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Preview Section -->
                     <div id="preview" class="bg-white rounded-lg shadow-lg p-6">
-                        <h2 class="text-xl font-bold mb-4">Preview</h2>
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold">Preview</h2>
+                            <button onclick="copyPreviewToClipboard()" class="flex items-center px-3 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200">
+                                <i class="ri-clipboard-line mr-2"></i>
+                                Copy
+                            </button>
+                        </div>
                         <div id="previewContent" class="prose max-w-none">
                             <!-- Preview content will be inserted here -->
                         </div>
@@ -738,24 +849,36 @@ ${cta}`;
                 'cold-emailer': {
                     surface: "Low response rates and high bounce rates in cold outreach",
                     root: "Targeting wrong ICP and using generic messaging",
-                    hidden: "Not leveraging social proof and personalization effectively"
+                    hidden: "Not leveraging social proof and personalization effectively",
+                    quickWin: "95% of cold emailers waste time on generic templates. The top 5% use personalized hooks based on recent company news.",
+                    timeToFix: "You can improve response rates by 300% in just 7 days with our proven framework."
                 },
                 'newsletter-owner': {
                     surface: "Low open rates and subscriber growth",
                     root: "Content not aligned with audience needs",
-                    hidden: "Missing clear value proposition and content distribution strategy"
+                    hidden: "Missing clear value proposition and content distribution strategy",
+                    quickWin: "Newsletters that grow fastest use a 3:1 ratio of educational to promotional content.",
+                    timeToFix: "Implement our content framework and see 40% higher open rates in 14 days."
                 },
                 'saas-founder': {
                     surface: "Low conversion rates and high churn",
                     root: "Product-market fit issues and poor onboarding",
-                    hidden: "Not leveraging customer success stories and social proof"
+                    hidden: "Not leveraging customer success stories and social proof",
+                    quickWin: "SaaS companies that document their first 100 customers see 3x faster growth.",
+                    timeToFix: "Fix your onboarding flow and reduce churn by 50% in 30 days."
                 }
             };
 
             document.getElementById('problemStack').classList.remove('hidden');
+            document.getElementById('quickWinInsights').classList.remove('hidden');
+            document.getElementById('multipleProblems').classList.remove('hidden');
+            document.getElementById('selectionFeedback').classList.remove('hidden');
+            
             document.getElementById('surfaceProblem').textContent = problems[persona].surface;
             document.getElementById('rootProblem').textContent = problems[persona].root;
             document.getElementById('hiddenProblem').textContent = problems[persona].hidden;
+            document.getElementById('quickWinText').textContent = problems[persona].quickWin;
+            document.getElementById('timeToFix').textContent = problems[persona].timeToFix;
 
             // Auto-fill search with relevant terms
             const searchTerms = {
@@ -765,6 +888,45 @@ ${cta}`;
             };
             document.getElementById('searchInput').value = searchTerms[persona];
             handleSearch();
+        }
+
+        function updateProblemSelection(checkbox) {
+            const selectedProblems = Array.from(document.querySelectorAll('#multipleProblems input[type="checkbox"]:checked'))
+                .map(cb => cb.nextElementSibling.querySelector('h4').textContent);
+            
+            if (selectedProblems.length > 0) {
+                document.getElementById('generateActionPlan').classList.remove('hidden');
+            } else {
+                document.getElementById('generateActionPlan').classList.add('hidden');
+            }
+        }
+
+        function generateActionPlan() {
+            const selectedProblems = Array.from(document.querySelectorAll('#multipleProblems input[type="checkbox"]:checked'))
+                .map(cb => cb.nextElementSibling.querySelector('h4').textContent);
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(16);
+            doc.text('Your Marketing Action Plan', 20, 20);
+            
+            doc.setFontSize(12);
+            let y = 40;
+            selectedProblems.forEach((problem, index) => {
+                doc.text(`${index + 1}. ${problem}`, 20, y);
+                y += 10;
+                doc.text('Action Steps:', 20, y);
+                y += 10;
+                doc.text('- Research and implement best practices', 25, y);
+                y += 10;
+                doc.text('- Create content addressing this issue', 25, y);
+                y += 10;
+                doc.text('- Track and measure improvements', 25, y);
+                y += 15;
+            });
+            
+            doc.save('marketing-action-plan.pdf');
         }
 
         function exportProblemAnalysis() {
@@ -828,7 +990,7 @@ ${cta}`;
             document.getElementById('takeaways').value = presetData.takeaways;
             document.getElementById('cta').value = presetData.cta;
 
-            document.getElementById('additionalResources').classList.remove('hidden');
+            document.getElementById('proTips').classList.remove('hidden');
             updatePreview();
         }
 
@@ -849,6 +1011,53 @@ ${cta}`;
 
             document.getElementById('quizContainer').classList.add('hidden');
             document.getElementById('quizResults').classList.remove('hidden');
+        }
+
+        function regenerateField(fieldId) {
+            const field = document.getElementById(fieldId);
+            const presets = {
+                'headline': [
+                    "How I Generated $10,000 in 24 Hours Using One Simple Email",
+                    "The 3-Step Framework That Got Me 100+ Clients in 30 Days",
+                    "How We Grew Our SaaS from 0 to $50K MRR in 6 Months"
+                ],
+                'results': [
+                    "- Generated $10,000 in revenue\n- Closed 2 high-ticket clients\n- Only took 8 hours",
+                    "- 100+ new clients\n- 85% conversion rate\n- Zero ad spend",
+                    "- $50K monthly recurring revenue\n- 500+ active users\n- 85% retention rate"
+                ],
+                'story': [
+                    "It was one of those lazy evenings.\n\nReacher on screen. Coffee in hand. Brain on airplane mode.\n\nThen my phone lights up -\n\n'Hey man, can you get me 2 leads in the next 24 hours?'\n\nNo intro. No context. Just pure panic energy.",
+                    "When we launched our SaaS product, we knew we had something special. But getting those first customers was tough.\n\nWe tried everything from cold outreach to content marketing. What worked? A combination of product-led growth and strategic partnerships.",
+                    "As a digital agency, we struggled to stand out in a crowded market. Then we discovered the power of case studies.\n\nWe documented one of our most successful projects in detail, showing exactly how we helped a client achieve their goals."
+                ],
+                'takeaways': [
+                    "- Keep your cold emails simple and direct\n- Focus on local businesses for quick wins\n- Don't overcomplicate the process",
+                    "- Focus on product-led growth\n- Build strategic partnerships\n- Leverage customer success stories",
+                    "- Document your process\n- Show real results\n- Make it replicable"
+                ],
+                'cta': [
+                    "Want to learn more? DM me for the exact email template I used",
+                    "Want our complete SaaS growth playbook? Click here to download!",
+                    "Want to see the exact case study that generated $100K? Download it here!"
+                ]
+            };
+
+            const randomIndex = Math.floor(Math.random() * presets[fieldId].length);
+            field.value = presets[fieldId][randomIndex];
+            updatePreview();
+        }
+
+        function copyPreviewToClipboard() {
+            const content = document.getElementById('previewContent').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                const button = document.querySelector('[onclick="copyPreviewToClipboard()"]');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="ri-check-line mr-2"></i>Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            });
         }
     </script>
 </body>
