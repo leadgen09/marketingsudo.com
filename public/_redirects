@@ -1,12 +1,13 @@
-# Serve landing page at root
+# Landing page routes
 / /landing.html 200
 
-# Main app routes
+# App routes
+/app/* /app.html 200
 /app /app.html 200
-/app.html /app.html 200
 
 # Handle direct file access
 /landing.html /landing.html 200
+/app.html /app.html 200
 
-# Fallback for all other routes to landing
+# Fallback
 /* /landing.html 200 
