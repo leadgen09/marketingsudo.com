@@ -1,0 +1,8 @@
+# Redirect root to landing page
+/ /landing.html 200
+
+# Redirect /app to the main platform
+/app /app.html 200
+
+# Handle direct access to app.html
+/app.html /app.html 200 
