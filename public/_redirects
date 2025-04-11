@@ -1,8 +1,12 @@
-# Redirect root to landing page
+# Serve landing page at root
 / /landing.html 200
 
-# Redirect /app to the main platform
+# Serve app at /app path
 /app /app.html 200
 
-# Handle direct access to app.html
-/app.html /app.html 200 
+# Handle direct file access
+/landing.html /landing.html 200
+/app.html /app.html 200
+
+# Fallback
+/* /landing.html 200 
