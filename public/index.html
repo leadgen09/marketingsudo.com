@@ -4,62 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarketingSudo - Monthly Lead Magnet & Community Finder</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #f6f8ff 0%, #f0f4ff 100%);
-        }
-        .feature-card {
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        .built-in-public {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .pricing-card {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        .pricing-card:hover {
-            border-color: #6366f1;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .tooltip {
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-        }
-        .group:hover .tooltip {
-            opacity: 1;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .dropdown-icon { transition: transform 0.2s; }
+        .dropdown-icon.ri-arrow-up-s-line { transform: rotate(180deg); }
     </style>
 </head>
-<body class="gradient-bg">
+<body class="bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100">
+    <nav class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="/" class="text-xl font-bold text-gray-900">MarketingSudo</a>
+                    <a href="/" class="flex items-center">
+                        <span class="text-xl font-bold text-gray-900">MarketingSudo</span>
+                    </a>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <a href="#pricing" class="text-gray-600 hover:text-gray-900">Pricing</a>
-                    <a href="/app" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-                        Try Free
+                <div class="flex items-center">
+                    <a href="/app" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Try Free Tool
                     </a>
                 </div>
             </div>
@@ -67,81 +33,61 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="py-20">
+    <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-100 rounded-full mb-4">
-                    🎯 Problem Discovery + Lead Magnet System
-                </span>
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-                    Don't Guess What Your<br/>
-                    <span class="gradient-text">Audience Really Wants</span>
+                <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
+                    Monthly Lead Magnet System
                 </h1>
-                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                    Discover real problems, generate magnetic lead magnets, and find promo-friendly communities — all in one platform.
+                <p class="mt-6 text-xl text-gray-600 max-w-3xl mx-auto">
+                    Promo-Ready Lead Magnets + Hand-Picked Communities
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="/app" class="px-8 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-lg font-semibold">
-                        Start Free Trial
+                <div class="mt-10">
+                    <a href="/app" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Try Free Tool
                     </a>
-                    <a href="#how-it-works" class="px-8 py-4 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-lg font-semibold">
-                        See How It Works
-                    </a>
-                </div>
-                <div class="mt-8 inline-block px-4 py-2 bg-amber-50 rounded-lg border border-amber-200">
-                    <p class="text-amber-700 font-medium">
-                        🎁 Free during early access — Get full access before we launch paid plans
-                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Monthly Drop Preview -->
-    <section class="py-12 bg-white">
+    <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">March 2024 Drop Preview</h2>
-                <p class="text-gray-600">Here's what members are getting this month</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 rounded-xl p-6">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="ri-file-chart-line text-2xl text-purple-500"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">5 Lead Magnet Templates</h3>
-                    <ul class="space-y-2 text-gray-600">
-                        <li>• SaaS Onboarding Checklist</li>
-                        <li>• Marketing ROI Calculator</li>
-                        <li>• Content Calendar Template</li>
-                        <li>• Email Sequence Framework</li>
-                        <li>• Analytics Dashboard</li>
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">March 2024 Drop Preview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-sm p-8">
+                    <h3 class="text-xl font-semibold mb-4">Lead Magnet Templates</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>B2B Case Study Template</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>Quick Win Story Framework</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>Problem-Solution Worksheet</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="bg-gray-50 rounded-xl p-6">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="ri-group-line text-2xl text-blue-500"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">10 Vetted Communities</h3>
-                    <ul class="space-y-2 text-gray-600">
-                        <li>• 3 WhatsApp Groups</li>
-                        <li>• 4 Slack Channels</li>
-                        <li>• 2 Discord Servers</li>
-                        <li>• 1 Telegram Group</li>
-                        <li>• Posting Guidelines</li>
-                    </ul>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-6">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="ri-download-cloud-line text-2xl text-green-500"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Bonus Resources</h3>
-                    <ul class="space-y-2 text-gray-600">
-                        <li>• Promotion Calendar</li>
-                        <li>• Engagement Scripts</li>
-                        <li>• Analytics Tracker</li>
-                        <li>• ROI Calculator</li>
-                        <li>• Video Tutorials</li>
+                <div class="bg-white rounded-xl shadow-sm p-8">
+                    <h3 class="text-xl font-semibold mb-4">Vetted Communities</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>5 High-Engagement WhatsApp Groups</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>3 Active Discord Servers</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>4 Promo-Friendly Slack Channels</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -149,560 +95,182 @@
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gray-900 mb-4">How It Works</h2>
-            <p class="text-xl text-gray-600 text-center mb-12 max-w-2xl mx-auto">A complete system to find problems, create lead magnets, and grow your audience</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="ri-search-line text-2xl text-blue-500"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4">1. Discover Real Problems</h3>
-                    <p class="text-gray-600 mb-4">Define your niche and uncover high-intent problems your audience is actively discussing.</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Reddit & community analysis</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Problem validation scores</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Engagement metrics</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="ri-magic-line text-2xl text-purple-500"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4">2. Generate Lead Magnets</h3>
-                    <p class="text-gray-600 mb-4">Get tailored lead magnet ideas based on real problems. No generic prompts or fluff.</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Problem-specific templates</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>One-click PDF export</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Customizable designs</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="ri-group-line text-2xl text-green-500"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-4">3. Find Active Communities</h3>
-                    <p class="text-gray-600 mb-4">Access vetted, promo-friendly communities where your audience hangs out.</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>WhatsApp & Telegram groups</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Slack & Discord channels</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Posting guidelines</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Example Output -->
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">See It In Action</h2>
-                <p class="text-gray-600">Here's an example of what you'll create with MarketingSudo</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                <div class="bg-gray-50 rounded-xl p-8">
-                    <div class="mb-8">
-                        <h3 class="text-lg font-semibold mb-4">🎯 Problem Discovery</h3>
-                        <div class="bg-white rounded-lg p-4 shadow-sm">
-                            <div class="flex items-start gap-3 mb-4">
-                                <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="ri-fire-line text-red-500"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">High-Intent Problem Found</h4>
-                                    <p class="text-gray-600 text-sm">"How do I create engaging social posts that don't take hours?"</p>
-                                </div>
-                            </div>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex justify-between text-gray-600">
-                                    <span>Engagement Score</span>
-                                    <span class="font-medium text-green-600">92/100</span>
-                                </div>
-                                <div class="flex justify-between text-gray-600">
-                                    <span>Discussion Volume</span>
-                                    <span class="font-medium text-green-600">High</span>
-                                </div>
-                                <div class="flex justify-between text-gray-600">
-                                    <span>Purchase Intent</span>
-                                    <span class="font-medium text-green-600">Very High</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold mb-4">🎁 Generated Lead Magnet</h3>
-                        <div class="bg-white rounded-lg p-4 shadow-sm">
-                            <h4 class="font-medium mb-2">7-Day Social Content Calendar Template</h4>
-                            <p class="text-gray-600 text-sm mb-4">A ready-to-use template with post ideas, scheduling tips, and engagement hacks.</p>
-                            <div class="space-y-2 text-sm">
-                                <div class="flex items-center text-gray-600">
-                                    <i class="ri-check-line text-green-500 mr-2"></i>
-                                    <span>Daily content prompts</span>
-                                </div>
-                                <div class="flex items-center text-gray-600">
-                                    <i class="ri-check-line text-green-500 mr-2"></i>
-                                    <span>Best time to post guide</span>
-                                </div>
-                                <div class="flex items-center text-gray-600">
-                                    <i class="ri-check-line text-green-500 mr-2"></i>
-                                    <span>Engagement tracking sheet</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-8">
-                    <h3 class="text-lg font-semibold mb-4">🌍 Recommended Communities</h3>
-                    <div class="space-y-4">
-                        <div class="bg-white rounded-lg p-4 shadow-sm">
-                            <div class="flex items-center gap-3 mb-2">
-                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                                    <i class="ri-whatsapp-line text-green-500 text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">Social Media Creators Hub</h4>
-                                    <p class="text-sm text-gray-600">WhatsApp Group • 2,500 members</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <span class="px-2 py-1 bg-green-100 text-green-700 rounded">Active</span>
-                                <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded">Promo Friendly</span>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-lg p-4 shadow-sm">
-                            <div class="flex items-center gap-3 mb-2">
-                                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                                    <i class="ri-discord-line text-purple-500 text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">Content Creator Network</h4>
-                                    <p class="text-sm text-gray-600">Discord Server • 5,000 members</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <span class="px-2 py-1 bg-green-100 text-green-700 rounded">Very Active</span>
-                                <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded">Lead Magnet Channel</span>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-lg p-4 shadow-sm">
-                            <div class="flex items-center gap-3 mb-2">
-                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                                    <i class="ri-slack-line text-blue-500 text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium">Social Growth Hackers</h4>
-                                    <p class="text-sm text-gray-600">Slack Channel • 1,800 members</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2 text-sm">
-                                <span class="px-2 py-1 bg-green-100 text-green-700 rounded">Active</span>
-                                <span class="px-2 py-1 bg-amber-100 text-amber-700 rounded">Resources Channel</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Visual Example -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">From Problem to Lead Magnet in Minutes</h2>
-                <p class="text-gray-600">See how we transform a discovered problem into a high-converting lead magnet</p>
-            </div>
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">How It Works</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl p-6 shadow-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                            <i class="ri-search-line text-red-500 text-xl"></i>
-                        </div>
-                        <h3 class="font-semibold">Problem Found</h3>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <p class="text-sm text-gray-600">"How do I create a content calendar that actually works?"</p>
-                        <div class="mt-3 flex items-center gap-2">
-                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">92% Engagement</span>
-                            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">High Intent</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl p-6 shadow-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <i class="ri-magic-line text-purple-500 text-xl"></i>
-                        </div>
-                        <h3 class="font-semibold">Lead Magnet Generated</h3>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <h4 class="font-medium text-sm mb-2">Content Calendar Template</h4>
-                        <ul class="space-y-2 text-sm text-gray-600">
-                            <li class="flex items-center gap-2">
-                                <i class="ri-check-line text-green-500"></i>
-                                <span>Monthly planning guide</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i class="ri-check-line text-green-500"></i>
-                                <span>Posting schedule</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl p-6 shadow-sm">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                            <i class="ri-group-line text-green-500 text-xl"></i>
-                        </div>
-                        <h3 class="font-semibold">Communities Found</h3>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <div class="flex items-center gap-2 mb-2">
-                            <i class="ri-whatsapp-line text-green-500"></i>
-                            <span class="text-sm font-medium">Content Creators Hub</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="ri-discord-line text-purple-500"></i>
-                            <span class="text-sm font-medium">Social Media Growth</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Breakdown -->
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">What MarketingSudo Does For You</h2>
-                <p class="text-gray-600">A complete system to grow your audience and generate leads</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-xl p-8 shadow-sm">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ri-search-eye-line text-blue-500 text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Problem Discovery</h3>
-                            <p class="text-gray-600">Find real problems your audience is actively discussing and willing to pay to solve.</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Analyze Reddit, forums, and communities for high-intent problems</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Get engagement scores and validation metrics</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Track problem trends over time</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-white rounded-xl p-8 shadow-sm">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ri-magic-line text-purple-500 text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Lead Magnet Creation</h3>
-                            <p class="text-gray-600">Generate high-converting lead magnets that solve specific problems.</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Problem-specific templates and frameworks</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>One-click PDF export with your branding</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Customizable designs and layouts</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-white rounded-xl p-8 shadow-sm">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ri-group-line text-green-500 text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Community Finding</h3>
-                            <p class="text-gray-600">Find active, promo-friendly communities where your audience hangs out.</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Vetted WhatsApp, Telegram, and Discord groups</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Community engagement metrics and rules</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Posting guidelines and best practices</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-white rounded-xl p-8 shadow-sm">
-                    <div class="flex items-start gap-4 mb-6">
-                        <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <i class="ri-line-chart-line text-amber-500 text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-2">Growth Tracking</h3>
-                            <p class="text-gray-600">Monitor your lead generation and community growth over time.</p>
-                        </div>
-                    </div>
-                    <ul class="space-y-3 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Lead magnet performance analytics</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Community engagement tracking</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="ri-check-line text-green-500 mr-2 mt-1"></i>
-                            <span>Conversion rate monitoring</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Coming Soon -->
-    <section class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-8 text-white">
                 <div class="text-center">
-                    <h3 class="text-2xl font-bold mb-2">🚀 Coming Soon</h3>
-                    <p class="text-blue-100 mb-8">Get early access to these premium features</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                        <div class="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                            <i class="ri-calendar-line text-2xl mb-2"></i>
-                            <h4 class="font-semibold mb-2">Monthly Drops</h4>
-                            <p class="text-sm text-blue-100">Fresh lead magnet templates and new communities every month</p>
-                        </div>
-                        <div class="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                            <i class="ri-file-text-line text-2xl mb-2"></i>
-                            <h4 class="font-semibold mb-2">Outreach Scripts</h4>
-                            <p class="text-sm text-blue-100">Templates for engaging with communities effectively</p>
-                        </div>
-                        <div class="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-                            <i class="ri-customer-service-line text-2xl mb-2"></i>
-                            <h4 class="font-semibold mb-2">Strategy Calls</h4>
-                            <p class="text-sm text-blue-100">1-on-1 guidance on your growth strategy</p>
-                        </div>
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-search-line text-blue-500 text-2xl"></i>
                     </div>
+                    <h3 class="text-xl font-semibold mb-2">Find Problems</h3>
+                    <p class="text-gray-600">Discover real pain points in your target market</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-file-list-3-line text-green-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Create Solutions</h3>
+                    <p class="text-gray-600">Generate lead magnets that solve these problems</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-share-forward-line text-purple-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Share & Grow</h3>
+                    <p class="text-gray-600">Post in vetted communities and grow your list</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Pricing -->
-    <section id="pricing" class="py-12 bg-white">
+    <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold mb-2">Start Free, Unlock More When You're Ready</h2>
-                <p class="text-gray-600">Choose the plan that fits your growth goals</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <div class="pricing-card bg-white p-6 rounded-xl shadow-sm">
-                    <div class="flex items-center gap-2 mb-3">
-                        <i class="ri-flask-line text-xl text-blue-500"></i>
-                        <h3 class="text-lg font-semibold">Free Plan</h3>
-                    </div>
-                    <div class="flex items-baseline gap-1 mb-2">
-                        <span class="text-3xl font-bold">$0</span>
-                        <span class="text-gray-500">/forever</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Perfect for getting started</p>
-                    <ul class="space-y-2 mb-6 text-sm">
-                        <li class="flex items-center group relative">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span class="font-medium">Unlimited Problem Discovery</span>
-                            <div class="tooltip hidden group-hover:block absolute left-0 -top-12 w-64 p-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg z-10">
-                                Get unlimited niche-specific problems your audience actually wants solved
-                                <div class="absolute -bottom-1 left-4 w-3 h-3 bg-gray-800 transform rotate-45"></div>
-                            </div>
-                            <i class="ri-information-line text-gray-400 ml-1 cursor-help"></i>
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Simple Pricing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-4">Free Trial</h3>
+                    <p class="text-3xl font-bold mb-4">$0<span class="text-lg text-gray-500">/forever</span></p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>1 Lead Magnet</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>1 Lead Magnet</strong> / month</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>2 Communities</strong></span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>Basic Editor</span>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>Basic Communities</span>
                         </li>
                     </ul>
-                    <a href="/app" class="block w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-lg text-center hover:bg-gray-200 transition-colors text-sm font-medium">
-                        Start Free
-                    </a>
-                </div>
-                <div class="pricing-card bg-white p-6 rounded-xl shadow-sm border-2 border-blue-500 relative">
-                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs">
-                        Most Popular
-                    </span>
-                    <div class="flex items-center gap-2 mb-3">
-                        <i class="ri-rocket-line text-xl text-blue-500"></i>
-                        <h3 class="text-lg font-semibold">Pro</h3>
-                    </div>
-                    <div class="flex items-baseline gap-1 mb-2">
-                        <span class="text-3xl font-bold">$19</span>
-                        <span class="text-gray-500">/month</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">For creators growing their audience</p>
-                    <ul class="space-y-2 mb-6 text-sm">
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span class="font-medium">Unlimited Problem Discovery</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>5 Lead Magnets</strong> / month</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>10 Communities</strong></span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>Pro Editor + PDF</strong></span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span>Priority Support</span>
-                        </li>
-                    </ul>
-                    <a href="/app" class="block w-full py-2 px-4 bg-blue-500 text-white rounded-lg text-center hover:bg-blue-600 transition-colors text-sm font-medium">
+                    <a href="/app" class="block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                         Get Started
                     </a>
                 </div>
-                <div class="pricing-card bg-white p-6 rounded-xl shadow-sm">
-                    <div class="flex items-center gap-2 mb-3">
-                        <i class="ri-trophy-line text-xl text-blue-500"></i>
-                        <h3 class="text-lg font-semibold">Ultimate</h3>
-                    </div>
-                    <div class="flex items-baseline gap-1 mb-2">
-                        <span class="text-3xl font-bold">$29</span>
-                        <span class="text-gray-500">/month</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">For serious marketers & lead gen pros</p>
-                    <ul class="space-y-2 mb-6 text-sm">
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span class="font-medium">Unlimited Problem Discovery</span>
+                <div class="bg-white rounded-xl shadow-sm p-6 border-2 border-blue-500">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-bl">Most Popular</div>
+                    <h3 class="text-xl font-semibold mb-4">Pro</h3>
+                    <p class="text-3xl font-bold mb-4">$29<span class="text-lg text-gray-500">/month</span></p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>5 Lead Magnets</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>20 Lead Magnets</strong> / month</span>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>Premium Communities</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>30 Communities</strong></span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>Pro Editor + PDF</strong></span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>Bonus Vault</strong></span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-check-line text-green-500 mr-2"></i>
-                            <span><strong>Early Access</strong></span>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>PDF Export</span>
                         </li>
                     </ul>
-                    <a href="/app" class="block w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-lg text-center hover:bg-gray-200 transition-colors text-sm font-medium">
-                        Upgrade to Ultimate
+                    <a href="/app" class="block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Start Free Trial
+                    </a>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-4">Ultimate</h3>
+                    <p class="text-3xl font-bold mb-4">$99<span class="text-lg text-gray-500">/month</span></p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>Unlimited Lead Magnets</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>All Communities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-green-500 mt-1 mr-2"></i>
+                            <span>Monthly Strategy Call</span>
+                        </li>
+                    </ul>
+                    <a href="/app" class="block w-full text-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Start Free Trial
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Social Proof -->
-    <section class="py-20">
+    <!-- Community Section -->
+    <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-xl shadow-sm p-8">
-                <div class="flex flex-col md:flex-row items-center gap-8">
-                    <div class="flex-1">
-                        <blockquote class="text-xl text-gray-700 mb-4">
-                            "The monthly drops save me hours of research. The lead magnets are super professional and the communities actually welcome promotional posts!"
-                        </blockquote>
-                        <div class="flex items-center">
-                            <img src="https://placehold.co/48x48" alt="User" class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold">Sarah Johnson</p>
-                                <p class="text-gray-600">Digital Marketing Consultant</p>
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Example Output</h2>
+            <div class="bg-gray-50 rounded-xl p-8">
+                <h3 class="text-lg font-semibold mb-4">🌍 Recommended Communities</h3>
+                <div class="space-y-4">
+                    <!-- WhatsApp Groups -->
+                    <div class="bg-white rounded-lg p-4">
+                        <button onclick="toggleDropdown('whatsapp')" class="w-full flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="ri-whatsapp-line text-green-500 text-xl"></i>
+                                <span class="font-medium">WhatsApp Groups (3)</span>
+                            </div>
+                            <i class="ri-arrow-down-s-line" id="whatsapp-icon"></i>
+                        </button>
+                        <div class="hidden mt-4 space-y-2" id="whatsapp-dropdown">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Social Media Creators Hub</p>
+                                <p class="text-sm text-gray-600">2,500 members</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Digital Marketing Pros</p>
+                                <p class="text-sm text-gray-600">1,800 members</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Content Strategy Network</p>
+                                <p class="text-sm text-gray-600">3,200 members</p>
                             </div>
                         </div>
                     </div>
-                    <div class="flex-1">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                <p class="text-3xl font-bold text-blue-600">500+</p>
-                                <p class="text-gray-600">Active Members</p>
+
+                    <!-- Discord Servers -->
+                    <div class="bg-white rounded-lg p-4">
+                        <button onclick="toggleDropdown('discord')" class="w-full flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="ri-discord-line text-purple-500 text-xl"></i>
+                                <span class="font-medium">Discord Servers (2)</span>
                             </div>
-                            <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                <p class="text-3xl font-bold text-blue-600">50+</p>
-                                <p class="text-gray-600">Templates/Month</p>
+                            <i class="ri-arrow-down-s-line" id="discord-icon"></i>
+                        </button>
+                        <div class="hidden mt-4 space-y-2" id="discord-dropdown">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Content Creator Network</p>
+                                <p class="text-sm text-gray-600">5,000 members</p>
                             </div>
-                            <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                <p class="text-3xl font-bold text-blue-600">100+</p>
-                                <p class="text-gray-600">Communities</p>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Marketing Growth Hub</p>
+                                <p class="text-sm text-gray-600">3,500 members</p>
                             </div>
-                            <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                <p class="text-3xl font-bold text-blue-600">4.9/5</p>
-                                <p class="text-gray-600">User Rating</p>
+                        </div>
+                    </div>
+
+                    <!-- Slack Channels -->
+                    <div class="bg-white rounded-lg p-4">
+                        <button onclick="toggleDropdown('slack')" class="w-full flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="ri-slack-line text-blue-500 text-xl"></i>
+                                <span class="font-medium">Slack Channels (4)</span>
+                            </div>
+                            <i class="ri-arrow-down-s-line" id="slack-icon"></i>
+                        </button>
+                        <div class="hidden mt-4 space-y-2" id="slack-dropdown">
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Social Growth Hackers</p>
+                                <p class="text-sm text-gray-600">1,800 members</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Digital Marketing Pros</p>
+                                <p class="text-sm text-gray-600">2,200 members</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Content Strategy Network</p>
+                                <p class="text-sm text-gray-600">1,500 members</p>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded">
+                                <p class="font-medium">Marketing Growth Hub</p>
+                                <p class="text-sm text-gray-600">2,000 members</p>
                             </div>
                         </div>
                     </div>
@@ -712,157 +280,56 @@
     </section>
 
     <!-- FAQ -->
-    <section class="py-20 bg-white">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-            <div class="space-y-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">How often do you add new content?</h3>
-                    <p class="text-gray-600">We release new lead magnet templates and community recommendations on the 1st of every month.</p>
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Frequently Asked Questions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-2">How often are new lead magnets added?</h3>
+                    <p class="text-gray-600">We add new lead magnet templates and community recommendations every month.</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">Can I customize the lead magnets?</h3>
-                    <p class="text-gray-600">Yes! Our editor lets you customize everything from colors to content. Export as PDF when ready.</p>
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-2">Can I customize the lead magnets?</h3>
+                    <p class="text-gray-600">Yes, all lead magnets are fully customizable to match your brand and audience.</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">Are the communities really promo-friendly?</h3>
-                    <p class="text-gray-600">Absolutely. We personally verify each community and provide specific posting guidelines to ensure your content is welcome.</p>
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-2">How are communities vetted?</h3>
+                    <p class="text-gray-600">We personally test each community for engagement, promo-friendliness, and member quality.</p>
                 </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-2">What's included in the monthly strategy call?</h3>
-                    <p class="text-gray-600">A 30-minute call with our team to review your lead magnets, choose the best communities, and optimize your promotion strategy.</p>
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h3 class="text-xl font-semibold mb-2">What's included in the strategy call?</h3>
+                    <p class="text-gray-600">Monthly 1:1 call to review your lead magnet strategy and community engagement.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="py-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold mb-4">Ready to grow your audience?</h2>
-            <p class="text-xl text-gray-600 mb-8">Join 500+ marketers getting fresh lead magnets and promo opportunities every month.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/app" class="px-8 py-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-lg font-semibold">
-                    Start Free Trial
-                </a>
-                <a href="#pricing" class="px-8 py-4 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-lg font-semibold">
-                    View Pricing
-                </a>
-            </div>
+    <section class="py-20 bg-blue-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Ready to Grow Your List?</h2>
+            <p class="text-xl text-blue-100 mb-8">Start with our free trial today</p>
+            <a href="/app" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50">
+                Try Free Tool
+            </a>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-white py-12 border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">MarketingSudo</h3>
-                    <p class="text-gray-600">Monthly lead magnets and communities for smart marketers.</p>
-                </div>
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-900 mb-4">Product</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#pricing" class="text-gray-600 hover:text-blue-600">Pricing</a></li>
-                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600">How It Works</a></li>
-                        <li><a href="/app" class="text-gray-600 hover:text-blue-600">Try Free</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-900 mb-4">Resources</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Blog</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Guides</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Templates</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-900 mb-4">Connect</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-600 hover:text-blue-600">
-                            <i class="ri-twitter-x-line text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-600 hover:text-blue-600">
-                            <i class="ri-linkedin-line text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-600 hover:text-blue-600">
-                            <i class="ri-github-line text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-200 mt-12 pt-8 text-center text-gray-600">
-                <p>© 2024 MarketingSudo. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Upcoming Feature Teaser -->
-    <section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="inline-block px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-100 rounded-full mb-4">
-                    Coming Soon
-                </span>
-                <h2 class="text-3xl font-bold mb-4">AI-Powered Problem Analysis</h2>
-                <p class="text-gray-600">Get deeper insights into your audience's problems with our upcoming AI features</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-sm">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="ri-brain-line text-blue-500 text-2xl"></i>
-                    </div>
-                    <h3 class="font-semibold mb-2">Problem Clustering</h3>
-                    <p class="text-sm text-gray-600">AI automatically groups similar problems and identifies patterns in your niche.</p>
-                </div>
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-sm">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="ri-line-chart-line text-purple-500 text-2xl"></i>
-                    </div>
-                    <h3 class="font-semibold mb-2">Trend Prediction</h3>
-                    <p class="text-sm text-gray-600">Predict emerging problems before they become mainstream in your industry.</p>
-                </div>
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-sm">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                        <i class="ri-lightbulb-flash-line text-green-500 text-2xl"></i>
-                    </div>
-                    <h3 class="font-semibold mb-2">Solution Generation</h3>
-                    <p class="text-sm text-gray-600">AI suggests unique lead magnet ideas based on problem analysis.</p>
-                </div>
-            </div>
-            <div class="text-center mt-8">
-                <a href="/app" class="inline-flex items-center px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-                    Get Early Access
-                    <i class="ri-arrow-right-line ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Win Insights -->
-    <div class="fixed bottom-4 right-4 max-w-sm bg-white rounded-lg shadow-lg p-4 border border-gray-200 transform transition-transform hover:scale-105 cursor-pointer" onclick="this.style.display='none'">
-        <div class="flex justify-between items-start mb-2">
-            <h3 class="text-lg font-semibold">Quick Win Insights</h3>
-            <button class="text-gray-400 hover:text-gray-600" onclick="event.stopPropagation(); this.parentElement.parentElement.style.display='none'">
-                <i class="ri-close-line"></i>
-            </button>
-        </div>
-        <div class="space-y-4">
-            <div class="bg-green-50 rounded p-3">
-                <div class="flex items-center gap-2 mb-1">
-                    <i class="ri-lightbulb-line text-green-600"></i>
-                    <span class="font-medium text-green-800">Did You Know?</span>
-                </div>
-                <p class="text-sm text-green-700">95% of cold emailers waste time on generic templates. The top 5% use personalized hooks based on recent company news.</p>
-            </div>
-            <div class="bg-purple-50 rounded p-3">
-                <div class="flex items-center gap-2 mb-1">
-                    <i class="ri-timer-line text-purple-600"></i>
-                    <span class="font-medium text-purple-800">Time to Fix</span>
-                </div>
-                <p class="text-sm text-purple-700">You can improve response rates by 300% in just 7 days with our proven framework.</p>
-            </div>
-        </div>
-    </div>
+    <script>
+    function toggleDropdown(platform) {
+        const dropdown = document.getElementById(`${platform}-dropdown`);
+        const icon = document.getElementById(`${platform}-icon`);
+        
+        if (dropdown.classList.contains('hidden')) {
+            dropdown.classList.remove('hidden');
+            icon.classList.remove('ri-arrow-down-s-line');
+            icon.classList.add('ri-arrow-up-s-line');
+        } else {
+            dropdown.classList.add('hidden');
+            icon.classList.remove('ri-arrow-up-s-line');
+            icon.classList.add('ri-arrow-down-s-line');
+        }
+    }
+    </script>
 </body>
 </html> 
