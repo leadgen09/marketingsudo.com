@@ -276,183 +276,131 @@
 
                 <!-- Community Section -->
                 <div id="community" class="max-w-4xl mx-auto hidden">
-                    <header class="mb-8">
-                        <div class="flex items-center gap-2">
-                            <h2 class="text-2xl font-bold text-gray-900">Join Communities</h2>
-                            <div class="group relative">
-                                <i class="ri-information-line text-gray-500 cursor-help"></i>
-                                <div class="absolute left-0 w-64 p-2 bg-gray-800 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
-                                    Some communities (especially Slack) may ask for your email. It's part of their approval process — feel free to unsubscribe later if needed.
-                                </div>
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center">
+                                <i class="ri-community-line text-2xl text-blue-600 mr-3"></i>
+                                <h3 class="text-xl font-bold">Join Communities</h3>
                             </div>
-                        </div>
-                        <p class="text-gray-600">Connect with fellow marketers and grow together</p>
-                    </header>
-
-                    <!-- Platform Leaderboard -->
-                    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-                        <h3 class="text-lg font-semibold mb-4">Top Marketing Communities</h3>
-                        
-                        <!-- Facebook Groups Section -->
-                        <div class="border rounded-lg mb-4 overflow-hidden">
-                            <button onclick="toggleSection('facebook-groups')" class="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                        <i class="ri-facebook-fill text-xl text-blue-500"></i>
-                                    </div>
-                                    <span class="font-medium">Facebook Groups</span>
-                                </div>
-                                <i class="ri-arrow-down-s-line text-xl text-gray-500 transform transition-transform" id="facebook-groups-arrow"></i>
-                            </button>
-                            <div id="facebook-groups" class="hidden">
-                                <div class="divide-y">
-                                    <!-- Facebook Groups -->
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">Appointment booking strategies</h4>
-                                                <p class="text-sm text-gray-600">Expert strategies for booking appointments</p>
-                                            </div>
-                                            <a href="https://www.facebook.com/share/g/15iFdFqdRE/" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Join →</a>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">n8n Automation community</h4>
-                                                <p class="text-sm text-gray-600">Automation workflows and best practices</p>
-                                            </div>
-                                            <a href="https://www.facebook.com/share/g/152VUHQ5Wq/" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Join →</a>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">High Level tools & automations</h4>
-                                                <p class="text-sm text-gray-600">Tools, snapshots, resources & automations</p>
-                                            </div>
-                                            <a href="https://www.facebook.com/share/g/1BpgLNmifS/" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Join →</a>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">Pay Per Lead Ninjas</h4>
-                                                <p class="text-sm text-gray-600">Lead generation strategies and tactics</p>
-                                            </div>
-                                            <a href="https://www.facebook.com/groups/payperleadninjas/about/" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Join →</a>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">AI Tools 101</h4>
-                                                <p class="text-sm text-gray-600">Latest AI tools and applications</p>
-                                            </div>
-                                            <a href="https://www.facebook.com/share/g/19EiwL3tKY/" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Join →</a>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">Staffing & Recruiting Agencies Forum</h4>
-                                                <p class="text-sm text-gray-600">Growth, lead gen, tools, AI, trends, staffing</p>
-                                            </div>
-                                            <a href="https://www.facebook.com/share/g/1YnLZJjBtp/" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Join →</a>
-                                        </div>
-                                    </div>
+                            <div class="relative group">
+                                <i class="ri-information-line text-gray-400 text-xl cursor-help"></i>
+                                <div class="absolute right-0 w-64 p-3 bg-gray-900 text-white text-sm rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                                    Communities are manually vetted for quality and engagement. You'll need to request to join via email.
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Telegram Groups Section -->
-                        <div class="border rounded-lg mb-4 overflow-hidden">
-                            <button onclick="toggleSection('telegram-groups')" class="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                        <i class="ri-telegram-fill text-xl text-blue-500"></i>
-                                    </div>
-                                    <span class="font-medium">Telegram Groups</span>
+                        <!-- Paywall Section -->
+                        <div id="communityPaywall" class="text-center py-8">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="ri-lock-line text-2xl text-blue-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold mb-2">Premium Communities Access</h4>
+                            <p class="text-gray-600 mb-6">Get access to our curated list of high-engagement communities for just $30</p>
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center justify-center space-x-2">
+                                    <i class="ri-check-line text-green-500"></i>
+                                    <span>WhatsApp Groups</span>
                                 </div>
-                                <i class="ri-arrow-down-s-line text-xl text-gray-500 transform transition-transform" id="telegram-groups-arrow"></i>
-                            </button>
-                            <div id="telegram-groups" class="hidden">
-                                <div class="divide-y">
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">ColdDmsPro</h4>
-                                                <p class="text-sm text-gray-600">Professional cold messaging strategies</p>
-                                            </div>
-                                            <a href="https://t.me/colddmspro" target="_blank" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Join →</a>
-                                        </div>
-                                    </div>
+                                <div class="flex items-center justify-center space-x-2">
+                                    <i class="ri-check-line text-green-500"></i>
+                                    <span>Discord Servers</span>
                                 </div>
+                                <div class="flex items-center justify-center space-x-2">
+                                    <i class="ri-check-line text-green-500"></i>
+                                    <span>Slack Channels</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-6 max-w-md mx-auto">
+                                <p class="text-gray-700 mb-4">To get access, please email us at:</p>
+                                <a href="mailto:dipen@marketingsudo.com" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                    <i class="ri-mail-line mr-2"></i>
+                                    dipen@marketingsudo.com
+                                </a>
+                                <p class="text-sm text-gray-500 mt-4">We'll send you payment instructions and unlock your access within 24 hours.</p>
                             </div>
                         </div>
 
-                        <!-- Slack Communities Section -->
-                        <div class="border rounded-lg mb-4 overflow-hidden">
-                            <button onclick="toggleSection('slack-groups')" class="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                                        <i class="ri-slack-fill text-xl text-purple-500"></i>
+                        <!-- Communities List (Hidden until payment) -->
+                        <div id="communitiesList" class="hidden">
+                            <div class="space-y-4">
+                                <!-- WhatsApp Groups -->
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <button onclick="toggleDropdown('whatsapp')" class="w-full flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <i class="ri-whatsapp-line text-green-500 text-xl"></i>
+                                            <span class="font-medium">WhatsApp Groups (3)</span>
+                                        </div>
+                                        <i class="ri-arrow-down-s-line" id="whatsapp-icon"></i>
+                                    </button>
+                                    <div class="hidden mt-4 space-y-2" id="whatsapp-dropdown">
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Social Media Creators Hub</p>
+                                            <p class="text-sm text-gray-600">2,500 members</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Digital Marketing Pros</p>
+                                            <p class="text-sm text-gray-600">1,800 members</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Content Strategy Network</p>
+                                            <p class="text-sm text-gray-600">3,200 members</p>
+                                        </div>
                                     </div>
-                                    <span class="font-medium">Slack Communities</span>
                                 </div>
-                                <i class="ri-arrow-down-s-line text-xl text-gray-500 transform transition-transform" id="slack-groups-arrow"></i>
-                            </button>
-                            <div id="slack-groups" class="hidden">
-                                <div class="divide-y">
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">Smartlead Community</h4>
-                                                <p class="text-sm text-gray-600">Sales automation and lead generation</p>
-                                            </div>
-                                            <a href="https://smartlead-hq.slack.com/archives/C0492PCUX7D" target="_blank" class="text-purple-500 hover:text-purple-600 font-medium text-sm">Join →</a>
+
+                                <!-- Discord Servers -->
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <button onclick="toggleDropdown('discord')" class="w-full flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <i class="ri-discord-line text-purple-500 text-xl"></i>
+                                            <span class="font-medium">Discord Servers (2)</span>
+                                        </div>
+                                        <i class="ri-arrow-down-s-line" id="discord-icon"></i>
+                                    </button>
+                                    <div class="hidden mt-4 space-y-2" id="discord-dropdown">
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Content Creator Network</p>
+                                            <p class="text-sm text-gray-600">5,000 members</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Marketing Growth Hub</p>
+                                            <p class="text-sm text-gray-600">3,500 members</p>
                                         </div>
                                     </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">RevGenius</h4>
-                                                <p class="text-sm text-gray-600">Revenue growth and sales strategies</p>
-                                            </div>
-                                            <a href="https://revgenius.slack.com/archives/C06FEDQKG7Q" target="_blank" class="text-purple-500 hover:text-purple-600 font-medium text-sm">Join →</a>
+                                </div>
+
+                                <!-- Slack Channels -->
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <button onclick="toggleDropdown('slack')" class="w-full flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <i class="ri-slack-line text-blue-500 text-xl"></i>
+                                            <span class="font-medium">Slack Channels (4)</span>
                                         </div>
-                                    </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">Maildoso Community</h4>
-                                                <p class="text-sm text-gray-600">Email marketing and outreach</p>
-                                            </div>
-                                            <a href="https://maildosocommunity.slack.com/archives/C07UN5R9YTC" target="_blank" class="text-purple-500 hover:text-purple-600 font-medium text-sm">Join →</a>
+                                        <i class="ri-arrow-down-s-line" id="slack-icon"></i>
+                                    </button>
+                                    <div class="hidden mt-4 space-y-2" id="slack-dropdown">
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Social Growth Hackers</p>
+                                            <p class="text-sm text-gray-600">1,800 members</p>
                                         </div>
-                                    </div>
-                                    <div class="p-4 hover:bg-gray-50 transition-colors">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <h4 class="font-medium">Apollo Sales Community</h4>
-                                                <p class="text-sm text-gray-600">Sales strategies and best practices</p>
-                                            </div>
-                                            <a href="https://apollosalesadvisors.slack.com/archives/C059N8L4N1M" target="_blank" class="text-purple-500 hover:text-purple-600 font-medium text-sm">Join →</a>
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Digital Marketing Pros</p>
+                                            <p class="text-sm text-gray-600">2,200 members</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Content Strategy Network</p>
+                                            <p class="text-sm text-gray-600">1,500 members</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded">
+                                            <p class="font-medium">Marketing Growth Hub</p>
+                                            <p class="text-sm text-gray-600">2,000 members</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <script>
-                        function toggleSection(sectionId) {
-                            const section = document.getElementById(sectionId);
-                            const arrow = document.getElementById(sectionId + '-arrow');
-                            section.classList.toggle('hidden');
-                            arrow.style.transform = section.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-                        }
-                    </script>
                 </div>
             </div>
         </div>
