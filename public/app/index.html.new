@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketingSudo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f6f8ff 0%, #f0f4ff 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900">Join Our Community</h2>
+            <p class="text-gray-600">Connect with fellow marketers and grow together</p>
+        </header>
+
+        <!-- Alert Banner -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded-lg">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i class="ri-alert-line text-yellow-400 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-yellow-700">
+                        ⚠️ Quick Tip: Some communities (especially Slack) may ask for your email. It's part of their approval process — feel free to unsubscribe later if needed.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-8">
+            <h3 class="text-lg font-semibold mb-4">🌍 Recommended Communities</h3>
+            <div class="space-y-4">
+                <!-- WhatsApp Groups -->
+                <div class="bg-white rounded-lg p-4">
+                    <button onclick="toggleDropdown('whatsapp')" class="w-full flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="ri-whatsapp-line text-green-500 text-xl"></i>
+                            <span class="font-medium">WhatsApp Groups (3)</span>
+                        </div>
+                        <i class="ri-arrow-down-s-line" id="whatsapp-icon"></i>
+                    </button>
+                    <div class="hidden mt-4 space-y-2" id="whatsapp-dropdown">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Social Media Creators Hub</p>
+                            <p class="text-sm text-gray-600">2,500 members</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Digital Marketing Pros</p>
+                            <p class="text-sm text-gray-600">1,800 members</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Content Strategy Network</p>
+                            <p class="text-sm text-gray-600">3,200 members</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Discord Servers -->
+                <div class="bg-white rounded-lg p-4">
+                    <button onclick="toggleDropdown('discord')" class="w-full flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="ri-discord-line text-purple-500 text-xl"></i>
+                            <span class="font-medium">Discord Servers (2)</span>
+                        </div>
+                        <i class="ri-arrow-down-s-line" id="discord-icon"></i>
+                    </button>
+                    <div class="hidden mt-4 space-y-2" id="discord-dropdown">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Content Creator Network</p>
+                            <p class="text-sm text-gray-600">5,000 members</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Marketing Growth Hub</p>
+                            <p class="text-sm text-gray-600">3,500 members</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slack Channels -->
+                <div class="bg-white rounded-lg p-4">
+                    <button onclick="toggleDropdown('slack')" class="w-full flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="ri-slack-line text-blue-500 text-xl"></i>
+                            <span class="font-medium">Slack Channels (4)</span>
+                        </div>
+                        <i class="ri-arrow-down-s-line" id="slack-icon"></i>
+                    </button>
+                    <div class="hidden mt-4 space-y-2" id="slack-dropdown">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Social Growth Hackers</p>
+                            <p class="text-sm text-gray-600">1,800 members</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Digital Marketing Pros</p>
+                            <p class="text-sm text-gray-600">2,200 members</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Content Strategy Network</p>
+                            <p class="text-sm text-gray-600">1,500 members</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="font-medium">Marketing Growth Hub</p>
+                            <p class="text-sm text-gray-600">2,000 members</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown(platform) {
+            const dropdown = document.getElementById(`${platform}-dropdown`);
+            const icon = document.getElementById(`${platform}-icon`);
+            
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+                icon.classList.remove('ri-arrow-down-s-line');
+                icon.classList.add('ri-arrow-up-s-line');
+            } else {
+                dropdown.classList.add('hidden');
+                icon.classList.remove('ri-arrow-up-s-line');
+                icon.classList.add('ri-arrow-down-s-line');
+            }
+        }
+    </script>
+</body>
+</html> 
